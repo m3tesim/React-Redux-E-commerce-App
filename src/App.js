@@ -1,11 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import './App.css';
+import React from "react";
+//import { Counter } from './features/counter/Counter';
+import "./App.css";
+import DashBoard from "./component/dashBoard";
 
 function App() {
-  return (
-    <div className="App">
+  return <div className="App">Hello wolrd
+  <DashBoard/>
+  
+  </div>;
+
+}
+
+export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <Counter />
@@ -51,8 +71,4 @@ function App() {
           </a>
         </span>
       </header>
-    </div>
-  );
-}
-
-export default App;
+*/
