@@ -1,5 +1,18 @@
 .App {
   text-align: center;
+  justify-content: center;
+  display: flex;
+  align-content: center;
+  font-size: calc(5px + 2vmin);
+}
+
+.app-container{
+
+  
+  max-width: 90vw;
+  margin: auto ;
+  
+
 }
 
 .App-logo {
@@ -7,19 +20,26 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
+
 
 .App-header {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+}
+
+.navBar{
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: calc(5px + 2vmin);
+  margin:5em auto  5em 3em;
+
+
 }
 
 .App-link {
@@ -36,4 +56,26 @@
   100% {
     transform: translateY(0px);
   }
+}
+
+
+.container{
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+}
+
+.thubnail{
+  width: 350px;
+  height:fit-content;
+  border:  solid black 1px;
+margin:5em auto  5em 3em;
+text-align: left;
+line-height: 1.6;
+
+}
+.thubnail img {
+  width: 350px;
+  height: auto;
 }

@@ -3,20 +3,24 @@ import "./App.css";
 import DashBoard from "./component/dashBoard";
 import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
+import LoadingBar from "react-redux-loading-bar";
+
+import Nav from "./component/nav";
 
 class App extends React.Component {
-
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
   render() {
     return (
-      <div className="App">
-        Hello wolrd
-        {this.props.loading===true? null :
-        
-        <DashBoard />}
-        
+      <div className="app-container">
+        <Nav />
+
+        <div className="App">
+          <LoadingBar />
+
+          {this.props.loading === true ? null : <DashBoard />}
+        </div>
       </div>
     );
   }
@@ -24,11 +28,8 @@ class App extends React.Component {
 
 export default connect(mapStateToProps)(App);
 
-function mapStateToProps({products}){
-  return{
-    loading: products === null
-
-  }
+function mapStateToProps({ products }) {
+  return {
+    loading: products === null,
+  };
 }
-
-

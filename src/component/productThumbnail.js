@@ -8,7 +8,14 @@ import { _getProductsById } from '../assets/API'
 const{product}=this.props
 
     return (
-      <div>ProductThumbnail {product.id}</div>
+
+      <div  className='thubnail'>
+          <img  src={product.gallery[0]} alt={`${product.name} image`}/>
+          
+         <div>{product.name}</div>  
+         <div>{product.prices[0].currency.symbol} {product.prices[0].amount} </div>  
+
+           </div>
 
     )
   }

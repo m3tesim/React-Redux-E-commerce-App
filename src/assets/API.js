@@ -7,14 +7,53 @@ const myClient = new ApolloClient({
 
 //  Graphql quereis
 
+const All_CATEGORIES=gql`
+query GetCategories{
+  categories {
+    name 
+     products{
+       id
+       name
+       category
+ 
+   
+     
+     }
+   }
+ 
+}
+`
+
 const ALL_PRODUCTS = gql`
   query GetAllProducts {
     category{
       name
-      products {
+     products {
+     
         id
         name
         brand
+        inStock
+        description
+        gallery
+        category
+  
+        attributes {
+          id
+          name
+          type
+          items {
+            id
+            value
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
       }
     }
   }
@@ -103,9 +142,25 @@ export function _getAllProducts(category) {
   });
 }
 
+export function _getCategories() {
+  return new Promise((res, rej) => {
+    setTimeout(
+      () =>
+        res(
+          myClient
+            .query({ query: All_CATEGORIES })
+            .then((result) => result.data)
+        ),
+      1000
+    );
+  });
+}
+
+
 export function getInitialData() {
-  return Promise.all([_getAllProducts(),]).then(([allProducts]) => ({
+  return Promise.all([_getAllProducts(), _getCategories()]).then(([allProducts,categories]) => ({
     allProducts,
+    categories
   }));
 
 }
