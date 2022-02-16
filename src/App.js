@@ -13,7 +13,9 @@ class App extends React.Component {
     return (
       <div className="App">
         Hello wolrd
-        {this.props.loading===true? null : <DashBoard />}
+        {this.props.loading===true? null :
+        
+        <DashBoard />}
         
       </div>
     );

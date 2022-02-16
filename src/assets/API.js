@@ -12,6 +12,7 @@ const ALL_PRODUCTS = gql`
     category{
       name
       products {
+        id
         name
         brand
       }
@@ -51,6 +52,63 @@ const PRODUCT_BY_CATEGORY = gql`
     }
 }`;
 
+const PRODUCT_BY_ID =gql`
+query GetProductById($id: String!) 
+  { 
+    product( id: $id ) {
+     
+        id
+        name
+        brand
+        inStock
+        description
+        gallery
+        category
+  
+        attributes {
+          id
+          name
+          type
+          items {
+            id
+            value
+          }
+        }
+        prices {
+          currency {
+            label
+            symbol
+          }
+          amount
+        }
+      }
+  
+}`;
+
+
+
+//  using the quereis above to get data and export it to the redux actions
+
+export function _getAllProducts(category) {
+  return new Promise((res, rej) => {
+    setTimeout(
+      () =>
+        res(
+          myClient
+            .query({ query: ALL_PRODUCTS })
+            .then((result) => result.data)
+        ),
+      1000
+    );
+  });
+}
+
+export function getInitialData() {
+  return Promise.all([_getAllProducts(),]).then(([allProducts]) => ({
+    allProducts,
+  }));
+
+}
 
 
 export function _getProductsByCategory(category) {
@@ -67,15 +125,13 @@ export function _getProductsByCategory(category) {
   });
 }
 
-//  using the quereis above to get data and export it to the redux actions
-
-export function _getAllProducts(category) {
+export function _getProductsById(id) {
   return new Promise((res, rej) => {
     setTimeout(
       () =>
         res(
           myClient
-            .query({ query: ALL_PRODUCTS, variables: { title: category } })
+            .query({ query: PRODUCT_BY_ID, variables: { id } })
             .then((result) => result.data)
         ),
       1000
@@ -83,9 +139,3 @@ export function _getAllProducts(category) {
   });
 }
 
-export function getInitialData() {
-  return Promise.all([_getAllProducts(),]).then(([allProducts]) => ({
-    allProducts,
-  }));
-
-}
