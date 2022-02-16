@@ -1,24 +1,29 @@
-import React from "react";
-import { ALL_PRODUCTS } from "../assets/API";
-import { useQuery } from "@apollo/client";
-export default function DashBoard () {
- 
-    const { loading, error, data } = useQuery(ALL_PRODUCTS);
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+//import { getproductByCategory } from "../actions/productsAction";
+
+class DashBoard extends Component {
+  render() {
+    const { dispatch, products } = this.props;
+
+    // const data = dispatch(getproductByCategory("clothes"))
 
     return (
-      <div>
-        dashBoard
-        {data.category.products.map(({name,brand},index) => (
-          <div key={index}>
-            <p>
-              {name}: {brand}
-            </p>
-          </div>
-        ))}
+      <div >
+        {
+           products.map((p,index) => <div key={index}>{p.name}</div>)
+        }
       </div>
     );
-  
+  }
+}
+
+export default connect(mapStateToProps)(DashBoard);
+
+function mapStateToProps({ products }) {
+  const theproduct =  products.category.products
+  return {
+    products:theproduct
+  };
 }

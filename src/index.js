@@ -1,19 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { store } from './app/store';
+import {createStore} from 'redux'
+import reducer from './reducers'
+import middleware from './middleWare'
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 
 
-import {
-  ApolloProvider,
- 
-} from "@apollo/client";
 
-import { myClient } from './assets/API';
-
-
+const store = createStore (reducer,middleware)
 
 
 
@@ -21,14 +17,10 @@ import { myClient } from './assets/API';
 
 ReactDOM.render(
   <React.StrictMode>
-      <ApolloProvider client={myClient}>
-
     <Provider store={store}>
       <App />
+      </Provider >
 
-    </Provider>
-
-    </ApolloProvider>
 
   </React.StrictMode>,
   document.getElementById('root')
