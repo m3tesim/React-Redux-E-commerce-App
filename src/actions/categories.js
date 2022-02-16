@@ -1,5 +1,5 @@
 
-export const GET_CATEGORIES = "get_category";
+export const GET_CATEGORIES = "get_categories";
 
 function getCategories(categories) {
   return {

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import ProductThumbnail from "./productThumbnail";
+import ProductThumbnail from "./productThumbnail"; 
+import Nav from "./nav";
 //import { getproductByCategory } from "../actions/productsAction";
 
 class DashBoard extends Component {

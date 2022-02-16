@@ -8,6 +8,7 @@ export function products(state=null, action) {
           ...state,
           ...action.products
         };
+       
         default:
             return state;
         }

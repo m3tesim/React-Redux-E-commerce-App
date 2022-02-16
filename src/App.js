@@ -14,12 +14,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="app-container">
-        <Nav />
+          {this.props.loadingNav === true ? null : <Nav />}
 
         <div className="App">
           <LoadingBar />
 
-          {this.props.loading === true ? null : <DashBoard />}
+          {this.props.loadingDashboard === true ? null : <DashBoard />}
         </div>
       </div>
     );
@@ -28,8 +28,10 @@ class App extends React.Component {
 
 export default connect(mapStateToProps)(App);
 
-function mapStateToProps({ products }) {
+function mapStateToProps({ products ,categories}) {
   return {
-    loading: products === null,
+    loadingDashboard: products === null ,
+    loadingNav: categories === null ,
+
   };
 }

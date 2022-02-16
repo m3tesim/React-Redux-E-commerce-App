@@ -128,7 +128,7 @@ query GetProductById($id: String!)
 
 //  using the quereis above to get data and export it to the redux actions
 
-export function _getAllProducts(category) {
+export function _getAllProducts() {
   return new Promise((res, rej) => {
     setTimeout(
       () =>

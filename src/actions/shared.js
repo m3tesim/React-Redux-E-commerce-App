@@ -7,9 +7,10 @@ export function handleInitialData() {
     return (dispatch) => {
 
       return getInitialData().then(({ allProducts ,categories}) => {
-        dispatch(getCategories(categories))
+      //  console.log("shared.js "+JSON.stringify(categories));
         dispatch(getProducts(allProducts));
-       // dispatch(getQuestions(questions));
+        dispatch(getCategories(categories));
+
       });
     };
   }

@@ -1,20 +1,26 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Nav extends Component {
   render() {
+    
     return (
-      <div className='navBar'>Nav</div>
-    )
+      <div className="navBar">
+        <ol>
+          {this.props.categories.categories.map((g, index) => (
+            <li key={index}> {g.name} </li>
+          ))}
+        </ol>
+        Nav
+      </div>
+    );
   }
 }
 
+export default connect(mapStateToProps)(Nav);
 
-
-
-
-export default  connect() (Nav)
-
-function mapStateToProps(){
-  return
+function mapStateToProps({ categories }) {
+  return {
+    categories,
+  };
 }

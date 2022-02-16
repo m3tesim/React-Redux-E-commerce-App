@@ -10,12 +10,12 @@ function getProducts(products) {
   };
 }
 
-export function getproductByCategory(category) {
+/*export function getproductByCategory(category) {
   return (dispatch) => {
     return _getProductsByCategory(category).then((products) => {
       dispatch(getProducts(products));
     });
   };
-}
+}*/
 
 export default getProducts;
