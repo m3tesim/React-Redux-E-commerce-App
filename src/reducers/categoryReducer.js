@@ -1,5 +1,4 @@
 import {GET_CATEGORIES} from "../actions/categories";
-
 export function categories(state=null, action) {
 
     switch (action.type) {

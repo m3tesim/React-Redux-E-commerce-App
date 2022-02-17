@@ -9,6 +9,7 @@ export function products(state=null, action) {
           ...action.products
         };
        
+       
         default:
             return state;
         }

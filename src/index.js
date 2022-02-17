@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 
-const store = createStore (reducer,middleware)
+export const store = createStore (reducer,middleware)
 
 
 
