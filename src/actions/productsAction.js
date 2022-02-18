@@ -12,12 +12,11 @@ export function getProducts(products) {
 
 
 
-
 export function getproductByCategory(category) {
-  console.log("this is product action"+JSON.stringify(category))
 
   return (dispatch) => {
-    return _getProductsByCategory(category).then(({products}) => {
+    return _getProductsByCategory(category).then((products) => {
+
       dispatch(getProducts(products));
     });
   };

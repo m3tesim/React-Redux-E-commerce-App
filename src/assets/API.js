@@ -180,7 +180,6 @@ export function getInitialData() {
 
 export function _getProductsByCategory(category) {
 
-  console.log("_get have called")
   return new Promise((res, rej) => {
     setTimeout(
       () =>
