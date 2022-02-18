@@ -27,7 +27,7 @@ selectedCurrency=(value)=>{
 
   render() {
     /* */
-    const { categories, currencies } = this.props;
+    const { categories } = this.props;
     return (
       <div>
         <div className="navBar">

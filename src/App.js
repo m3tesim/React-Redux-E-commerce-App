@@ -4,7 +4,6 @@ import DashBoard from "./component/dashBoard";
 import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
 import LoadingBar from "react-redux-loading-bar";
-import { store} from "./index"
 
 import Nav from "./component/nav";
 
