@@ -37,7 +37,7 @@ export default connect(mapStateToProps)(App);
 
 function mapStateToProps({ products ,currencies}) {
   return {
-    loadingDashboard: products === null ,
+    loadingDashboard: currencies === null ,
     loadingNav:(currencies === null)  ,
 
 

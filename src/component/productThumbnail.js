@@ -3,9 +3,16 @@ import { connect } from 'react-redux'
 import { _getProductsById } from '../assets/API'
 
  class ProductThumbnail extends Component {
-
+ bar = "dscs"
   render() {
-const{product}=this.props
+const{product,currencies}=this.props
+
+//console.log(currencies)
+const currency =product.prices.filter((c)=>(
+  c.currency.label===currencies.label
+))
+
+console.log("the new cuurency"+JSON.stringify(currency))
 
     return (
 
@@ -13,7 +20,10 @@ const{product}=this.props
           <img  src={product.gallery[0]} alt={`${product.name} image`}/>
           
          <div>{product.name}</div>  
-         <div>{product.prices[0].currency.symbol} {product.prices[0].amount} </div>  
+         <div>
+           
+           
+           {currency[0].currency.symbol} {currency[0].amount} </div>  
 
            </div>
 
@@ -25,11 +35,12 @@ const{product}=this.props
 export default connect(mapStateToProps)(ProductThumbnail)
 
 
-function mapStateToProps({ products },{id}) {
+function mapStateToProps({ products,currencies },{id}) {
     const theProducts =  products.category.products
     const product=theProducts.filter((p)=>(p.id===id))
     
     return {
-     product:product[0]      
+     product:product[0]     ,
+     currencies 
     };
   }

@@ -3,8 +3,11 @@ import { connect } from "react-redux";
 import shoppingbag from "../assets/baglogo.svg";
 import cart from "../assets/cart.svg";
 import { getproductByCategory } from "../actions/productsAction";
+import getCurrency from "../actions/currencyAction";
+
 
 class Nav extends Component {
+
   state = {
     category: this.props.categories.categories,
   };
@@ -15,6 +18,13 @@ class Nav extends Component {
     this.props.dispatch(getproductByCategory(category));
   };
 
+
+
+selectedCurrency=(value)=>{
+  this.props.dispatch(getCurrency({__typename: 'Currency',label:value}))
+
+}
+
   render() {
     /* */
     const { categories, currencies } = this.props;
@@ -24,13 +34,11 @@ class Nav extends Component {
           <div>
             {categories.categories.map((g, index) => (
               <li key={index}>
-                {" "}
                 <a
                   href="#"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>
-                  {" "}
-                  {g.name.toUpperCase()}{" "}
+                  {g.name.toUpperCase()}
                 </a>
               </li>
             ))}
@@ -42,12 +50,12 @@ class Nav extends Component {
 
           <div>
             <form>
-              <select name="currencies" id="currencies">
-                {currencies.currencies.map((c) => (
-                  <option key={c.label} value={c.label}>
-                    {c.label} {c.symbol}
-                  </option>
-                ))}
+              <select  name="currencies" onChange={(e)=>(this.selectedCurrency(e.target.value))}>
+                  <option  value="USD">USD $</option>
+                  <option  value="GBP">GBP £</option>
+                  <option  value="AUD">AUD A$</option>
+                  <option  value="JPY">JPY A¥</option>
+                  <option  value="RUB">RUB A₽</option>
               </select>
             </form>
           </div>

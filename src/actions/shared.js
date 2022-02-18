@@ -10,7 +10,7 @@ export function handleInitialData() {
       return getInitialData().then(({ allProducts ,categories,currencies}) => {
         dispatch(getProducts(allProducts));
         dispatch(getCategories(categories));
-        dispatch(getCurrency(currencies))
+        dispatch(getCurrency(currencies.currencies[0]))
 
       });
     };
