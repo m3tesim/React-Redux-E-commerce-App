@@ -2,19 +2,15 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import cart from "../assets/cart.svg";
 import addToCart from "../actions/addToCart";
+import { Link } from "react-router-dom";
 class ProductThumbnail extends Component {
   state = {
     hover: false,
   };
 
-
-
-
-  addItem=()=>{
-
-    this.props.dispatch(addToCart(this.props.product))
-
-  }
+  addItem = () => {
+    this.props.dispatch(addToCart(this.props.product));
+  };
   onMouseOver = () => {
     console.log("hover");
     setTimeout(() => {
@@ -30,10 +26,7 @@ class ProductThumbnail extends Component {
         hover: false,
       }));
     }, 500);
-   
   };
-
-  
 
   render() {
     const { product, currencies } = this.props;
@@ -44,30 +37,34 @@ class ProductThumbnail extends Component {
     );
 
     return (
-      
-        <div
-          className="thubnail"
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}>
+      <div
+        className="thubnail"
+        onMouseOver={this.onMouseOver}
+        onMouseOut={this.onMouseOut}>
+        <Link to={`/product/${product.id}`}>
           <img
             className="thubnailimg"
             src={product.gallery[0]}
             alt={`${product.name} `}
           />
-          {this.state.hover ? (
-            <div   >
-            </div>
-            ) :  ""}
-                         <button href="#" onClick={()=>(this.addItem())}> <img  id="cart" src={cart} alt="cart-icon" /></button>
+        </Link>
 
-
-          <div>{product.name}</div>
-
+        {this.state.hover ? (
           <div>
-            {currency[0].currency.symbol} {currency[0].amount}{" "}
+            <button href="#" onClick={() => this.addItem()}>
+              <img id="cart" src={cart} alt="cart-icon" />
+            </button>
           </div>
+        ) : (
+          ""
+        )}
+        <Link to={`/product/${product.id}`}>
+          <div>{product.name}</div>
+        </Link>
+        <div>
+          {currency[0].currency.symbol} {currency[0].amount}{" "}
         </div>
-      
+      </div>
     );
   }
 }

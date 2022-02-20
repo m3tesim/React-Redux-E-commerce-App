@@ -120,3 +120,10 @@ background-color: aliceblue;
   width: 350px;
   height: auto;
 }
+
+
+.productContainer{
+
+  display: flex;
+  flex-direction: row;
+}

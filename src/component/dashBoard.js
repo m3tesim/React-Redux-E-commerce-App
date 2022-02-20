@@ -1,7 +1,7 @@
-import { storeValueIsStoreObject } from "@apollo/client/cache/inmemory/helpers";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductThumbnail from "./productThumbnail"; 
+import Nav from "./nav";
 //import { getproductByCategory } from "../actions/productsAction";
 
 class DashBoard extends Component {
@@ -11,9 +11,9 @@ class DashBoard extends Component {
     // const data = dispatch(getproductByCategory("clothes"))
     return (
       <div>
+        <Nav />
 
         <div className="container">
-
 
           {products.map((p) => (
             <div key={p.id}>

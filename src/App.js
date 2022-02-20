@@ -4,8 +4,10 @@ import DashBoard from "./component/dashBoard";
 import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
 import LoadingBar from "react-redux-loading-bar";
+import { Route, Switch } from "react-router-dom";
+import ProductPage from "./component/productPage";
 
-import Nav from "./component/nav";
+
 
 class App extends React.Component {
   componentDidMount() {
@@ -17,10 +19,12 @@ class App extends React.Component {
   render() {
 
 
-    const{loadingNav,loadingDashboard}=this.props
+    const{loadingDashboard}=this.props
     return (
+
+      <Switch>
+        <Route  exact path="/">
       <div className="app-container">
-          {loadingNav === true ? null : <Nav />}
 
         <div className="App">
           <LoadingBar />
@@ -28,13 +32,20 @@ class App extends React.Component {
           {loadingDashboard === true ? null : <DashBoard />}
         </div>
       </div>
+      </Route>
+
+      <Route   path="/product/:id" component={ProductPage}>
+
+
+      </Route>
+      </Switch>
     );
   }
 }
 
 export default connect(mapStateToProps)(App);
 
-function mapStateToProps({ products ,currencies}) {
+function mapStateToProps({ currencies}) {
   return {
     loadingDashboard: currencies === null ,
     loadingNav:(currencies === null)  ,
