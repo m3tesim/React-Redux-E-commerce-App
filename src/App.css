@@ -4,18 +4,12 @@
   display: flex;
   align-content: center;
   font-size: calc(5px + 2vmin);
-  
 }
 
-.app-container{
-
-  
+.app-container {
   max-width: 90vw;
-  margin: auto ;
-  margin :5em auto  5em 3em;
-
-  
-
+  margin: auto;
+  margin: 5em auto 5em 3em;
 }
 
 .App-logo {
@@ -23,36 +17,30 @@
   pointer-events: none;
 }
 
-
-
 .App-header {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   font-size: calc(10px + 2vmin);
 }
-.categories-container{
+.categories-container {
   display: inline-block;
-
 }
 
-.navBar{
-  display:grid;
+.navBar {
+  display: grid;
   grid-template-columns: auto auto auto auto auto auto;
   gap: 2em;
   justify-content: space-evenly;
 
   font-size: calc(5px + 2vmin);
-  margin:5em auto  5em 3em;
+  margin: 5em auto 5em 3em;
   font-family: Raleway;
   background-color: antiquewhite;
 }
 .navBar div:first-child {
   text-align: center;
   float: left;
-
-
-
 }
 
 .navBar div li {
@@ -60,31 +48,30 @@
   margin-left: 1em;
 }
 
-
-
-.navIcon{
+.navIcon {
   min-width: 1.2em;
-  max-width:1.2em ;
+  max-width: 1.2em;
   min-height: 1.2em;
- margin-left: 1em;
- 
-
+  margin-left: 1em;
 }
-.cart{
-  min-width: 1.2em;
-  max-width:1.2em ;
+.cart-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 32px;
 
-  min-height: 1.2em;
- margin-left: 1em;
+  font-family: Raleway;
+  font-size: 14px;
+  font-style: normal;
+  line-height: 10px;
+  letter-spacing: 0em;
+  text-align: center;
+  background: #5ECE7B;
+  color: #ffffff;
+  width: 292px;
+  border: 0ch;
 }
 
-#cart{
-  min-width: 1.2em;
-  max-width:1.2em ;
-
-  min-height: 1.2em;
- margin-left: 1em;
-}
 .App-link {
   color: rgb(112, 76, 182);
 }
@@ -101,92 +88,120 @@
   }
 }
 
-
-.container{
-
+.container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
-
 }
 
-.thubnail{
+.thubnail {
   width: 350px;
-  height:fit-content;
-  border:  solid black 1px;
-margin:5em auto  5em 3em;
-text-align: left;
-line-height: 1.6;
-background-color: aliceblue;
-
+  height: fit-content;
+  border: solid black 1px;
+  margin: 5em auto 5em 3em;
+  text-align: left;
+  line-height: 1.6;
+  background-color: aliceblue;
 }
 .thubnailimg {
   width: 350px;
   height: auto;
 }
 
-
-.product-container{
-
+.product-container {
   display: flex;
   flex-direction: row;
   margin-left: 5em;
 }
 
-.images-container{
+.images-container {
   background-color: antiquewhite;
 }
-.images-container img:first-child{
- max-height: 511px;
-max-width: 610px;
+.images-container img:first-child {
+  max-height: 511px;
+  max-width: 610px;
 
-padding: 1em;
-float: right;
-
-
+  padding: 1em;
+  float: right;
 }
 
-.images-container .img-nav{
+.images-container .img-nav {
   max-height: 511px;
   width: auto;
 
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-
 }
-.images-container .img-nav img{
+.images-container .img-nav img {
   display: block;
-   min-width: 50px;
-  max-width:100px;
+  min-width: 50px;
+  max-width: 100px;
   max-height: 100px;
   min-height: auto;
- 
- padding: 1em;
- border-radius: 0px;
- 
- }
 
- .images-container .img-nav img:hover{
-   background-color: #5ECE7B;
+  padding: 1em;
+  border-radius: 0px;
+}
 
- }
+.images-container .img-nav img:hover {
+  background-color: #5ece7b;
+}
 
-
- .product-info{
+.product-info {
   font-family: Raleway;
   font-style: normal;
   text-align: left;
   margin-left: 5em;
-  
- }
- .product-info .cart {
- 
+}
+.product-info .cart {
   padding: 16px 32px;
-  
+
   width: fit-content;
   height: auto;
- 
-  
-  background: #5ECE7B;
- }
+
+  background: #5ece7b;
+}
+
+.atributes {
+  display: flex;
+  width: 292px;
+  align-items: flex-start;
+}
+
+/*
+  Hide radio button (the round disc)
+  we will use just the label to create pushbutton effect
+*/
+input[type="radio"] {
+  display: none;
+  margin: 10px;
+}
+
+/*
+Change the look'n'feel of labels (which are adjacent to radiobuttons).
+Add some margin, padding to label
+*/
+input[type="radio"] + label {
+  font: Source Sans Pro;
+
+  display: inline-block;
+  margin-right: 5px;
+  padding: 10px;
+  background-color: #ffffff;
+  height: fit-content;
+  text-align: center;
+  width: fit-content;
+  border-style: solid;
+  border-width: 1px;
+  border-color: black;
+}
+/*
+Change background color for label next to checked radio button
+to make it look like highlighted button
+*/
+input[type="radio"]:checked + label {
+  background-image: none;
+  color: #ffffff;
+  background-color: #1d1f22;
+}

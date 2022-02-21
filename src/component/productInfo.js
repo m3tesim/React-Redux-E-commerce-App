@@ -17,59 +17,66 @@ switch(expression) {
 class ProductInfo extends Component {
   render() {
     const { product, currency } = this.props;
-    const size = `
-    <h5{atr.name}</h5>;
 
-    <p>"this is the size"</p>;
-    `;
 
     let attributes;
     try {
       attributes = product.attributes.map((atr) => {
-        <h5>{atr.name}</h5>;
-        console.log(atr.name);
         switch (atr.name) {
           case "Size":
             return (
               <div>
                 <h5>{atr.name}</h5>
 
-                <p>"this is the size"</p>
+                <div className="atributes">
+                  {atr.items.map((i, index) => (
+                    <>
+                      <input
+                        key={index}
+                        type="radio"
+                        id={i.id}
+                        name={atr.name}
+                        value={i.value}
+                      />
+                      <label for={i.id}>{i.value}</label>
+                    </>
+                  ))}
+                </div>
               </div>
             );
           case "Capacity":
-            return  (
-                <div>
-                  <h5>{atr.name}</h5>
-  
-                  <p>"this is the Capacity"</p>
-                </div>
-              );
+            return (
+              <div>
+                <h5>{atr.name}</h5>
+
+                <p>"this is the Capacity"</p>
+              </div>
+            );
           case "Color":
-            return  (
-                <div>
-                  <h5>{atr.name}</h5>
-  
-                  <p>"this is the Color"</p>
-                </div>
-              );
+            return (
+              <div>
+                <h5>{atr.name}</h5>
+
+                <p>"this is the Color"</p>
+              </div>
+            );
           case "With USB 3 ports":
             return (
-                <div>
-                  <h5>{atr.name}</h5>
-  
-                  <p>"this is the ports"</p>
-                </div>
-              );
+              <div>
+                <h5>{atr.name}</h5>
+
+                <p>"this is the ports"</p>
+              </div>
+            );
 
           case "Touch ID in keyboard":
-            return  (
-                <div>
-                  <h5>{atr.name}</h5>
-  
-                  <p>"this is the  touch"</p>
-                </div>
-              );
+            return (
+              <div>
+                <h5>{atr.name}</h5>
+
+                <p>"this is the touch"</p>
+              </div>
+            );
 
           default:
             return <p>""</p>;
@@ -92,9 +99,13 @@ class ProductInfo extends Component {
             {currency[0].currency.symbol} {currency[0].amount}
           </h4>
         </div>
-        <button className="cart">ADD TO CART</button>
+        <div>
+          <button className="cart-btn">ADD TO CART</button>
+        </div>
+        <br></br>
+        <div id="discription" >
+        </div>
 
-        <div>{product.description}</div>
       </div>
     );
   }
