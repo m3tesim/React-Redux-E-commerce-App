@@ -4,7 +4,7 @@ import shoppingbag from "../assets/baglogo.svg";
 import cart from "../assets/cart.svg";
 import { getproductByCategory } from "../actions/productsAction";
 import getCurrency from "../actions/currencyAction";
-
+import { NavLink } from "react-router-dom";
 
 class Nav extends Component {
 
@@ -34,12 +34,12 @@ selectedCurrency=(value)=>{
           <div>
             {categories.categories.map((g, index) => (
               <li key={index}>
-                <a
-                  href="#"
+                <NavLink
+                  to="/"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>
                   {g.name.toUpperCase()}
-                </a>
+                </NavLink>
               </li>
             ))}
           </div>
