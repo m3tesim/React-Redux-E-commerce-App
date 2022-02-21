@@ -3,7 +3,6 @@ import "./App.css";
 import DashBoard from "./component/dashBoard";
 import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
-import LoadingBar from "react-redux-loading-bar";
 import { Route, Switch } from "react-router-dom";
 import ProductPage from "./component/productPage";
 
@@ -14,7 +13,10 @@ class App extends React.Component {
     this.props.dispatch(handleInitialData());
     
   }
+  componentWillUnmount(){
+    this.props.dispatch(handleInitialData());
 
+  }
 
   render() {
 
@@ -27,7 +29,6 @@ class App extends React.Component {
       <div className="app-container">
 
         <div className="App">
-          <LoadingBar />
 
           {loadingDashboard === true ? null : <DashBoard />}
         </div>

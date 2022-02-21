@@ -157,10 +157,9 @@ float: right;
 }
 .images-container .img-nav img{
   display: block;
+   min-width: 50px;
   max-width:100px;
-  min-width: 50px;
-
-  max-height: auto;
+  max-height: 100px;
   min-height: auto;
  
  padding: 1em;

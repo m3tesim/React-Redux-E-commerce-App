@@ -24,6 +24,7 @@ export default class Gallery extends Component {
                 onClick={() => this.toglleImg(index)}
                 key={index}
                 src={img}
+              
               />
             ))}
           </div>
