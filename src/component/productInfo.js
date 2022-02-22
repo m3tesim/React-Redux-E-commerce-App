@@ -1,23 +1,67 @@
 import React, { Component } from "react";
 
-/*
-
-switch(expression) {
-    case x:
-      // code block
-      break;
-    case y:
-      // code block
-      break;
-    default:
-      // code block
-  }
-*/
-
+import addToCart from "../actions/addToCart";
+import { connect } from "react-redux";
 class ProductInfo extends Component {
+  state = {
+    size: null,
+    capacity:null,
+    attributes:[]
+  };
+
+
+  // let user change size
+  changeSize = (e) => {
+
+    this.setState({
+       size: e.target.value ,
+       attributes:[...this.state.attributes,'Size']
+      });
+  };
+  changeCapacity=(e)=>{
+    console.log("change capacity")
+    this.setState({
+      size: e.target.value ,
+      attributes:[...this.state.attributes,'Capacity']
+     });
+  }
+
+// return the cutome product after the user change attributes
+  setAttribute=(atr)=>{
+    console.log("this is atr from additem " + JSON.stringify(atr));
+
+    const { product } = this.props;
+
+    let atribute = product.attributes.filter((i)=>(i.id===atr))[0].items.filter(
+      (i) => i.value === this.state.size)
+    console.log("this is the cahnege atribute " + JSON.stringify(atribute));
+    return atribute[0];
+  }
+
+  // add the cusomised item to the cart 
+  addItem = () => {
+    const { product} = this.props;
+
+
+const allAttributes =this.state.attributes.map((atr)=>{
+  let result=this.setAttribute(atr)
+
+  return {__typename: 'AttributeSet', id: atr, name: atr, type: 'text', items: result}
+
+})
+
+ let cutomeProduct = Object.assign({}, product, { attributes: allAttributes});
+
+    
+console.log("all state atributes" + JSON.stringify(allAttributes));
+console.log("the final product" + JSON.stringify(cutomeProduct));
+
+   this.props.dispatch(addToCart(cutomeProduct));
+  }
+
+
   render() {
     const { product, currency } = this.props;
-
 
     let attributes;
     try {
@@ -37,8 +81,10 @@ class ProductInfo extends Component {
                         id={i.id}
                         name={atr.name}
                         value={i.value}
+                        onChange={this.changeSize}
+                        required
                       />
-                      <label for={i.id}>{i.value}</label>
+                      <label htmlFor={i.id}> {i.value}</label>
                     </>
                   ))}
                 </div>
@@ -48,8 +94,22 @@ class ProductInfo extends Component {
             return (
               <div>
                 <h5>{atr.name}</h5>
-
-                <p>"this is the Capacity"</p>
+                <div className="atributes">
+                  {atr.items.map((i, index) => (
+                    <>
+                      <input
+                        key={index}
+                        type="radio"
+                        id={i.id}
+                        name={atr.name}
+                        value={i.value}
+                        onChange={this.changeCapacity}
+                        required
+                      />
+                      <label htmlFor={i.id}> {i.value}</label>
+                    </>
+                  ))}
+                </div>
               </div>
             );
           case "Color":
@@ -100,15 +160,15 @@ class ProductInfo extends Component {
           </h4>
         </div>
         <div>
-          <button className="cart-btn">ADD TO CART</button>
+          <button className="cart-btn" onClick={() => this.addItem()}>
+            ADD TO CART
+          </button>
         </div>
         <br></br>
-        <div id="discription" >
-        </div>
-
+        <div id="discription"></div>
       </div>
     );
   }
 }
 
-export default ProductInfo;
+export default connect()(ProductInfo);
