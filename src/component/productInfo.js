@@ -238,7 +238,11 @@ class ProductInfo extends Component {
           </button>
         </div>
         <br></br>
-        <div id="discription"></div>
+        <div id="discription" 
+        dangerouslySetInnerHTML={{ __html: product.description }}/>
+          
+
+        
       </div>
     );
   }
