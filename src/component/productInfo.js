@@ -5,69 +5,86 @@ import { connect } from "react-redux";
 class ProductInfo extends Component {
   state = {
     Size: null,
-    Capacity:null,
-    Color:null,
-    attributes:[]
+    Capacity: null,
+    Color: null,
+    "With USB 3 ports": null,
+    "Touch ID in keyboard": null,
+    attributes: [],
   };
-
 
   // let user change size
   changeSize = (e) => {
-
     this.setState({
-       Size: e.target.value ,
-       attributes:[...this.state.attributes,'Size']
-      });
+      Size: e.target.value,
+      attributes: [...this.state.attributes, "Size"],
+    });
   };
   changeColor = (e) => {
-    console.log("change color")
+    console.log("change color");
     this.setState({
-      Color: e.target.value ,
-      attributes:[...this.state.attributes,'Color']
-     });
-
-    
+      Color: e.target.value,
+      attributes: [...this.state.attributes, "Color"],
+    });
   };
-  changeCapacity=(e)=>{
+  changeCapacity = (e) => {
     this.setState({
-      Capacity: e.target.value ,
-      attributes:[...this.state.attributes,'Capacity']
-     });
-  }
+      Capacity: e.target.value,
+      attributes: [...this.state.attributes, "Capacity"],
+    });
+  };
 
-// return the cutome product after the user change attributes
-  setAttribute=(atr)=>{
+  portNum = (e) => {
+    console.log("change ports number ");
+    this.setState({
+      "With USB 3 ports": e.target.value,
+      attributes: [...this.state.attributes, "With USB 3 ports"],
+    });
+  };
+  touchOption = (e) => {
+    console.log("change touch options  ");
+    this.setState({
+      "Touch ID in keyboard": e.target.value,
+      attributes: [...this.state.attributes, "Touch ID in keyboard"],
+    });
+  };
+
+  // return the cutome product after the user change attributes
+  setAttribute = (atr) => {
     console.log("this is atr from additem " + JSON.stringify(atr));
 
     const { product } = this.props;
 
-    let atribute = product.attributes.filter((i)=>(i.id===atr))[0].items.filter(
-      (i) => i.value === this.state[atr])
+    let atribute = product.attributes
+      .filter((i) => i.id === atr)[0]
+      .items.filter((i) => i.value === this.state[atr]);
     console.log("this is the cahnege atribute " + JSON.stringify(atribute));
     return atribute[0];
-  }
+  };
 
-  // add the cusomised item to the cart 
+  // add the customised item to the cart
   addItem = () => {
-    const { product} = this.props;
+    const { product } = this.props;
 
+    const allAttributes = this.state.attributes.map((atr) => {
+      let result = this.setAttribute(atr);
 
-const allAttributes =this.state.attributes.map((atr)=>{
-  let result=this.setAttribute(atr)
+      return {
+        __typename: "AttributeSet",
+        id: atr,
+        name: atr,
+        type: "text",
+        items: result,
+      };
+    });
 
-  return {__typename: 'AttributeSet', id: atr, name: atr, type: 'text', items: result}
+    let cutomeProduct = Object.assign({}, product, {
+      attributes: allAttributes,
+    });
 
-})
+    console.log("all state atributes" + JSON.stringify(allAttributes));
 
- let cutomeProduct = Object.assign({}, product, { attributes: allAttributes});
-
-    
-console.log("all state atributes" + JSON.stringify(allAttributes));
-console.log("the final product" + JSON.stringify(cutomeProduct));
-
-   this.props.dispatch(addToCart(cutomeProduct));
-  }
-
+    this.props.dispatch(addToCart(cutomeProduct));
+  };
 
   render() {
     const { product, currency } = this.props;
@@ -124,9 +141,12 @@ console.log("the final product" + JSON.stringify(cutomeProduct));
           case "Color":
             return (
               <div>
-                <h5>{atr.name} :  <span style={{  color: "gray" }} >{this.state.color}</span></h5>
+                <h5>
+                  {atr.name} :{" "}
+                  <span style={{ color: "gray" }}>{this.state.color}</span>
+                </h5>
                 <div className="atributes">
-                {atr.items.map((i, index) => (
+                  {atr.items.map((i, index) => (
                     <>
                       <input
                         key={index}
@@ -137,11 +157,12 @@ console.log("the final product" + JSON.stringify(cutomeProduct));
                         onChange={this.changeColor}
                         required
                       />
-                      <label    id="color-input" 
-                   style={{  backgroundColor: i.value }} htmlFor={i.id}></label>
+                      <label
+                        id="color-input"
+                        style={{ backgroundColor: i.value }}
+                        htmlFor={i.id}></label>
                     </>
                   ))}
-
                 </div>
               </div>
             );
@@ -149,8 +170,21 @@ console.log("the final product" + JSON.stringify(cutomeProduct));
             return (
               <div>
                 <h5>{atr.name}</h5>
-
-                <p>"this is the ports"</p>
+                <div className="atributes">
+                  {atr.items.map((i, index) => (
+                    <>
+                      <input
+                        key={index}
+                        type="radio"
+                        id={i.id}
+                        name={atr.name}
+                        value={i.value}
+                        onChange={this.portNum}
+                      />
+                      <label htmlFor={i.id}> {i.value}</label>
+                    </>
+                  ))}
+                </div>
               </div>
             );
 
@@ -159,7 +193,21 @@ console.log("the final product" + JSON.stringify(cutomeProduct));
               <div>
                 <h5>{atr.name}</h5>
 
-                <p>"this is the touch"</p>
+                <div className="atributes">
+                  {atr.items.map((i, index) => (
+                    <>
+                      <input
+                        key={index}
+                        type="radio"
+                        id={"i.id"}
+                        name={atr.name}
+                        value={i.value}
+                        onChange={this.touchOption}
+                      />
+                      <label htmlFor={"i.id"}> {i.value}</label>
+                    </>
+                  ))}
+                </div>
               </div>
             );
 
