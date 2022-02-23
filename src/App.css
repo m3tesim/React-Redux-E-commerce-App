@@ -178,6 +178,18 @@ input[type="radio"] {
   margin: 10px;
 }
 
+#color-input{
+
+  display: inline-block;
+  margin-right:10px;
+  padding: 10px;
+  width:20px;
+  height:20px ;
+  background-color: #ffffff;
+  text-align: center;
+
+}
+
 /*
 Change the look'n'feel of labels (which are adjacent to radiobuttons).
 Add some margin, padding to label
@@ -204,4 +216,8 @@ input[type="radio"]:checked + label {
   background-image: none;
   color: #ffffff;
   background-color: #1d1f22;
+  border-width: 3px;
+  border-color: #1f1f1f;
+
 }
+

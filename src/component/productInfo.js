@@ -4,8 +4,9 @@ import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 class ProductInfo extends Component {
   state = {
-    size: null,
-    capacity:null,
+    Size: null,
+    Capacity:null,
+    Color:null,
     attributes:[]
   };
 
@@ -14,14 +15,22 @@ class ProductInfo extends Component {
   changeSize = (e) => {
 
     this.setState({
-       size: e.target.value ,
+       Size: e.target.value ,
        attributes:[...this.state.attributes,'Size']
       });
   };
-  changeCapacity=(e)=>{
-    console.log("change capacity")
+  changeColor = (e) => {
+    console.log("change color")
     this.setState({
-      size: e.target.value ,
+      Color: e.target.value ,
+      attributes:[...this.state.attributes,'Color']
+     });
+
+    
+  };
+  changeCapacity=(e)=>{
+    this.setState({
+      Capacity: e.target.value ,
       attributes:[...this.state.attributes,'Capacity']
      });
   }
@@ -33,7 +42,7 @@ class ProductInfo extends Component {
     const { product } = this.props;
 
     let atribute = product.attributes.filter((i)=>(i.id===atr))[0].items.filter(
-      (i) => i.value === this.state.size)
+      (i) => i.value === this.state[atr])
     console.log("this is the cahnege atribute " + JSON.stringify(atribute));
     return atribute[0];
   }
@@ -115,9 +124,25 @@ console.log("the final product" + JSON.stringify(cutomeProduct));
           case "Color":
             return (
               <div>
-                <h5>{atr.name}</h5>
+                <h5>{atr.name} :  <span style={{  color: "gray" }} >{this.state.color}</span></h5>
+                <div className="atributes">
+                {atr.items.map((i, index) => (
+                    <>
+                      <input
+                        key={index}
+                        type="radio"
+                        id={i.id}
+                        name={atr.name}
+                        value={i.value}
+                        onChange={this.changeColor}
+                        required
+                      />
+                      <label    id="color-input" 
+                   style={{  backgroundColor: i.value }} htmlFor={i.id}></label>
+                    </>
+                  ))}
 
-                <p>"this is the Color"</p>
+                </div>
               </div>
             );
           case "With USB 3 ports":
