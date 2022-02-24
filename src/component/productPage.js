@@ -12,7 +12,7 @@ class ProductPage extends Component {
       (c) => c.currency.label === currencies.label
     );
     return (
-      <div>
+      <div >
         <Nav />
 
 

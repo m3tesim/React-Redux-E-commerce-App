@@ -24,15 +24,15 @@ class App extends React.Component {
     const{loadingDashboard}=this.props
     return (
 
-      <Switch>
-        <Route  exact path="/">
       <div className="app-container">
 
-        <div className="App">
+      <div className="App">
+      <Switch>
+        <Route  exact path="/">
+    
 
           {loadingDashboard === true ? null : <DashBoard />}
-        </div>
-      </div>
+    
       </Route>
 
       <Route   path="/product/:id" component={ProductPage}>
@@ -40,6 +40,8 @@ class App extends React.Component {
 
       </Route>
       </Switch>
+      </div>
+      </div>
     );
   }
 }

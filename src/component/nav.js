@@ -7,7 +7,6 @@ import getCurrency from "../actions/currencyAction";
 import { NavLink } from "react-router-dom";
 
 class Nav extends Component {
-
   state = {
     category: this.props.categories.categories,
   };
@@ -18,24 +17,22 @@ class Nav extends Component {
     this.props.dispatch(getproductByCategory(category));
   };
 
-
-
-selectedCurrency=(value)=>{
-  this.props.dispatch(getCurrency({__typename: 'Currency',label:value}))
-
-}
+  selectedCurrency = (value) => {
+    this.props.dispatch(getCurrency({ __typename: "Currency", label: value }));
+  };
 
   render() {
     /* */
     const { categories } = this.props;
     return (
-      <div>
+      <div className="nav-container">
         <div className="navBar">
           <div>
             {categories.categories.map((g, index) => (
               <li key={index}>
                 <NavLink
-                style={{ textDecoration: 'none' }}
+                className="navLink"
+                  style={{ textDecoration: "none" }}
                   to="/"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>
@@ -45,23 +42,28 @@ selectedCurrency=(value)=>{
             ))}
           </div>
 
-          <div className="navIcon">
+          <div className="navIcon logo ">
             <img src={shoppingbag} alt="Logo" />
           </div>
 
-          <div>
-            <form>
-              <select  name="currencies" onChange={(e)=>(this.selectedCurrency(e.target.value))}>
-                  <option  value="USD">USD $</option>
-                  <option  value="GBP">GBP £</option>
-                  <option  value="AUD">AUD A$</option>
-                  <option  value="JPY">JPY A¥</option>
-                  <option  value="RUB">RUB A₽</option>
+          <div className="leftnavBar" >
+          
+              <select
+                className="dropDown"
+                name="currencies"
+                onChange={(e) => this.selectedCurrency(e.target.value)}>
+                <option value="USD">$</option>
+                <option value="GBP">£</option>
+                <option value="AUD">A$</option>
+                <option value="JPY">A¥</option>
+                <option value="RUB">A₽</option>
               </select>
-            </form>
-          </div>
-          <div className="cart">
-            <img src={cart} alt="cart-icon" />
+         
+
+            <div className="navIcon">
+              <img src={cart} alt="cart-icon" />
+            </div>
+
           </div>
         </div>
       </div>

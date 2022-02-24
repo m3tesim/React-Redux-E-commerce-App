@@ -4,6 +4,10 @@
   display: flex;
   align-content: center;
   font-size: calc(5px + 2vmin);
+font-family: Raleway;
+font-style: normal;
+
+
 }
 
 .app-container {
@@ -12,10 +16,7 @@
   margin: 5em auto 5em 3em;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
+
 
 .App-header {
   min-height: 100vh;
@@ -26,22 +27,26 @@
 .categories-container {
   display: inline-block;
 }
+.nav-container{
+  width: 100%;
+  min-height: 150px;
+}
 
 .navBar {
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  gap: 2em;
-  justify-content: space-evenly;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
   font-size: calc(5px + 2vmin);
-  margin: 5em auto 5em 3em;
   font-family: Raleway;
-  background-color: antiquewhite;
 }
-.navBar div:first-child {
-  text-align: center;
-  float: left;
+.leftnavBar {
+  display: flex;
+  margin-right: 10px;
+  padding: 10px;
+
 }
+
 
 .navBar div li {
   display: inline;
@@ -52,7 +57,27 @@
   min-width: 1.2em;
   max-width: 1.2em;
   min-height: 1.2em;
-  margin-left: 1em;
+  margin-left: 5px;
+
+}
+
+.logo {
+  pointer-events: none;
+  margin-right: 5em;
+}
+.dropDown{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  margin-right: 1em;
+}
+
+
+.navLink{
+  text-decoration: "none";
+  color: #1D1F22;
 }
 .cart-btn {
   display: flex;
@@ -103,7 +128,6 @@
 .thubnail {
   width: 350px;
   height: fit-content;
-  border: solid black 1px;
   margin: 5em auto 5em 3em;
   text-align: left;
   line-height: 1.6;
@@ -113,6 +137,11 @@
   width: 350px;
   height: auto;
 }
+.thubnail:hover
+ {
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+
+}
 
 .product-container {
   display: flex;
@@ -120,9 +149,7 @@
   margin-left: 5em;
 }
 
-.images-container {
-  background-color: antiquewhite;
-}
+
 .images-container img:first-child {
   max-height: 511px;
   max-width: 610px;
