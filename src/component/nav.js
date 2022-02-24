@@ -35,6 +35,7 @@ selectedCurrency=(value)=>{
             {categories.categories.map((g, index) => (
               <li key={index}>
                 <NavLink
+                style={{ textDecoration: 'none' }}
                   to="/"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>

@@ -70,6 +70,11 @@
   color: #ffffff;
   width: 292px;
   border: 0ch;
+  cursor: pointer;
+}
+.cart-btn:disabled{
+  background: #5c5e5c;
+  color: #313030;
 }
 
 .App-link {
@@ -93,6 +98,7 @@
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: auto;
 }
+
 
 .thubnail {
   width: 350px;
@@ -139,6 +145,7 @@
   max-width: 100px;
   max-height: 100px;
   min-height: auto;
+  cursor: pointer;
 
   padding: 1em;
   border-radius: 0px;
@@ -168,6 +175,8 @@
   display: flex;
   width: 292px;
   align-items: flex-start;
+  cursor: pointer;
+
 }
 
 /*
@@ -208,6 +217,8 @@ input[type="radio"] + label {
   border-style: solid;
   border-width: 1px;
   border-color: black;
+  cursor: pointer;
+
 }
 /*
 Change background color for label next to checked radio button
@@ -224,4 +235,66 @@ input[type="radio"]:checked + label {
 
 #discription{
   color: #1d1f22;
+}
+
+.link{
+  text-decoration: none;
+}
+
+/* this is pop up styling    */   
+
+.model{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) scale(0);
+  transition: 200ms ease-in-out;
+  border-radius:10px;
+  z-index: 10;
+  background-color: #ffffff;
+  width: 500px;
+  min-height: 300px;
+  max-width: 80%;
+}
+.model.active{
+  transform: translate(-50%,-50%) scale(1);
+
+}
+
+.model-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: .5em;
+  border-bottom: 1px solid #a2a3a2
+}
+.model-header .title {
+  font-size: 1.25rem;
+}
+
+.model-header .close-button{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.model-body{
+  padding: .5em;
+}
+
+#overlay{
+  position: fixed;
+  opacity: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0,0,0,.5);
+  pointer-events: none;
+}
+#overlay.active{
+opacity: 1;
+pointer-events: all;
 }

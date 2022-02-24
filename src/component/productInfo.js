@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import PopUp from "./popUp";
+import Gallery from "./gallery";
+
 class ProductInfo extends Component {
   state = {
     Size: null,
@@ -10,45 +14,20 @@ class ProductInfo extends Component {
     "With USB 3 ports": null,
     "Touch ID in keyboard": null,
     attributes: [],
+
+    validation: false,
   };
 
   // let user change size
-  changeSize = (e) => {
+
+  changeAttribute = (e, atr) => {
     this.setState({
-      Size: e.target.value,
-      attributes: [...this.state.attributes, "Size"],
-    });
-  };
-  changeColor = (e) => {
-    console.log("change color");
-    this.setState({
-      Color: e.target.value,
-      attributes: [...this.state.attributes, "Color"],
-    });
-  };
-  changeCapacity = (e) => {
-    this.setState({
-      Capacity: e.target.value,
-      attributes: [...this.state.attributes, "Capacity"],
+      [atr]: e.target.value,
+      attributes: [...this.state.attributes, atr],
     });
   };
 
-  portNum = (e) => {
-    console.log("change ports number ");
-    this.setState({
-      "With USB 3 ports": e.target.value,
-      attributes: [...this.state.attributes, "With USB 3 ports"],
-    });
-  };
-  touchOption = (e) => {
-    console.log("change touch options  ");
-    this.setState({
-      "Touch ID in keyboard": e.target.value,
-      attributes: [...this.state.attributes, "Touch ID in keyboard"],
-    });
-  };
-
-  // return the cutome product after the user change attributes
+  // return the cutome product after the user changed attributes
   setAttribute = (atr) => {
     console.log("this is atr from additem " + JSON.stringify(atr));
 
@@ -59,6 +38,20 @@ class ProductInfo extends Component {
       .items.filter((i) => i.value === this.state[atr]);
     console.log("this is the cahnege atribute " + JSON.stringify(atribute));
     return atribute[0];
+  };
+
+  validation = () => {
+    const { product } = this.props;
+
+    let missedAttributes = product.attributes.filter(
+      (atr) => this.state[atr.name] === null
+    );
+    const warning = missedAttributes.map((atr) => (
+      <p> `Please choose ${atr.name} `</p>
+    ));
+
+    if (missedAttributes.length === 0) return false;
+    else return true;
   };
 
   // add the customised item to the cart
@@ -76,12 +69,10 @@ class ProductInfo extends Component {
         items: result,
       };
     });
-
+    this.setState({ validation: true });
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
     });
-
-    console.log("all state atributes" + JSON.stringify(allAttributes));
 
     this.props.dispatch(addToCart(cutomeProduct));
   };
@@ -107,7 +98,7 @@ class ProductInfo extends Component {
                         id={i.id}
                         name={atr.name}
                         value={i.value}
-                        onChange={this.changeSize}
+                        onChange={(e) => this.changeAttribute(e, atr.name)}
                         required
                       />
                       <label htmlFor={i.id}> {i.value}</label>
@@ -129,7 +120,7 @@ class ProductInfo extends Component {
                         id={i.id}
                         name={atr.name}
                         value={i.value}
-                        onChange={this.changeCapacity}
+                        onChange={(e) => this.changeAttribute(e, atr.name)}
                         required
                       />
                       <label htmlFor={i.id}> {i.value}</label>
@@ -154,7 +145,7 @@ class ProductInfo extends Component {
                         id={i.id}
                         name={atr.name}
                         value={i.value}
-                        onChange={this.changeColor}
+                        onChange={(e) => this.changeAttribute(e, atr.name)}
                         required
                       />
                       <label
@@ -179,7 +170,7 @@ class ProductInfo extends Component {
                         id={i.id}
                         name={atr.name}
                         value={i.value}
-                        onChange={this.portNum}
+                        onChange={(e) => this.changeAttribute(e, atr.name)}
                       />
                       <label htmlFor={i.id}> {i.value}</label>
                     </>
@@ -199,12 +190,12 @@ class ProductInfo extends Component {
                       <input
                         key={index}
                         type="radio"
-                        id={"i.id"}
+                        id={i.value + "1"}
                         name={atr.name}
                         value={i.value}
-                        onChange={this.touchOption}
+                        onChange={(e) => this.changeAttribute(e, atr.name)}
                       />
-                      <label htmlFor={"i.id"}> {i.value}</label>
+                      <label htmlFor={i.value + "1"}> {i.value}</label>
                     </>
                   ))}
                 </div>
@@ -233,16 +224,31 @@ class ProductInfo extends Component {
           </h4>
         </div>
         <div>
-          <button className="cart-btn" onClick={() => this.addItem()}>
-            ADD TO CART
-          </button>
+          {this.state.validation === true ? (
+            <Link className="link" to="/">
+              <PopUp 
+              title={"product have been added to the cart"}
+              body={`"${product.name} have been added to the cart  `}
+              />
+
+            </Link>
+          ) : (
+            ""
+          )}
+          <Link className="link">
+            <button
+              className="cart-btn"
+              onClick={() => this.addItem()}
+              disabled={this.validation()}>
+              ADD TO CART
+            </button>
+          </Link>
         </div>
         <br></br>
-        <div id="discription" 
-        dangerouslySetInnerHTML={{ __html: product.description }}/>
-          
-
-        
+        <div
+          id="discription"
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        />
       </div>
     );
   }

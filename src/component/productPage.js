@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import Nav from "./nav";
 import Gallery from "./gallery";
 import ProductInfo from "./productInfo";
+import PopUp from "./popUp";
 class ProductPage extends Component {
   render() {
     const { product, currencies } = this.props;
@@ -13,6 +14,7 @@ class ProductPage extends Component {
     return (
       <div>
         <Nav />
+
 
         <div className="product-container">
           <Gallery product={product} />
