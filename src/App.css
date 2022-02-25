@@ -10,8 +10,7 @@ font-style: normal;
 }
 
 .app-container {
-  max-width: 90vw;
-  margin: auto;
+  max-width: 90%;
   margin: 5em auto 5em 3em;
 }
 
@@ -329,11 +328,28 @@ pointer-events: all;
 
 .cart-container{
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
+
   text-align: left;
+  width: 1000px;
+
 
 }
 
 .cart-info{
-  line-height:-25%;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: .5em;
+}
+.cart-img{
+  display: block;
+  min-width: 50px;
+  max-width: 200px;
+  max-height: 300px;
+  height: auto;
+  cursor: pointer;
+
+  padding: 1em;
+  border-radius: 0px;
 }

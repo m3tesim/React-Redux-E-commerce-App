@@ -8,19 +8,18 @@ class Cart extends Component {
     return (
       <div>
         <Nav />
-        <h3 >Cart</h3>
+        <h3>Cart</h3>
 
         <div className="cart-container">
-
-          <div>
+          
             {cart.items.map((i, index) => (
-                <>
-              <Item key={index} product={i} currencies={currencies} />
-              <hr />
-              </>
+              <>
+               
 
+                <Item key={index} product={i} currencies={currencies} />
+              </>
             ))}
-          </div>
+          
         </div>
       </div>
     );
@@ -43,27 +42,46 @@ class Item extends Component {
       (c) => c.currency.label === currencies.label
     );
     return (
-      <div className="cart-info">
+      <div>
+                  <hr />
 
-        <h4>{product.brand}</h4>
-        <p>{product.name}    </p>
-        <h4>
-          {currency[0].currency.symbol} {currency[0].amount}
-        </h4>
+        <div className="cart-info">
 
-        
-          {product.attributes.map((atr) => {
-              const style={
-                backgroundColor:atr.items.value,
-                width:'200px',
-                height:'200px',
-            }
-              if (atr.name==="Color") return (<h5 > {atr.name}: <span style={style}>{atr.items.id}</span> </h5>)
+          <div>
 
-           else  return (<h5> {atr.name}: {atr.items.id}</h5>)
+            <h4>{product.brand}</h4>
+            <p>{product.name} </p>
+            <h4>
+              {currency[0].currency.symbol} {currency[0].amount}
+            </h4>
 
-           } )}
-        
+            {product.attributes.map((atr) => {
+              const style = {
+                backgroundColor: atr.items.value,
+                width: "200px",
+                height: "200px",
+              };
+              if (atr.name === "Color")
+                return (
+                  <h5>
+                    {" "}
+                    {atr.name}: <span style={style}>{atr.items.id}</span>{" "}
+                  </h5>
+                );
+              else
+                return (
+                  <h5>
+                    {" "}
+                    {atr.name}: {atr.items.id}
+                  </h5>
+                );
+            })}
+          </div>
+
+          <div>
+            <img className="cart-img" src={product.gallery[0]} />
+          </div>
+        </div>
       </div>
     );
   }
