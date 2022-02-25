@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { handleInitialData } from "./actions/shared";
 import { Route, Switch } from "react-router-dom";
 import ProductPage from "./component/productPage";
-
+import Cart from "./component/cart";
 
 
 class App extends React.Component {
@@ -36,6 +36,11 @@ class App extends React.Component {
       </Route>
 
       <Route   path="/product/:id" component={ProductPage}>
+
+
+      </Route>
+
+      <Route   path="/cart" component={Cart}>
 
 
       </Route>

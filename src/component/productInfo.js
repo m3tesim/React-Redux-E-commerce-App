@@ -235,14 +235,12 @@ class ProductInfo extends Component {
           ) : (
             ""
           )}
-          <Link className="link">
             <button
               className="cart-btn"
               onClick={() => this.addItem()}
               disabled={this.validation()}>
               ADD TO CART
             </button>
-          </Link>
         </div>
         <br></br>
         <div

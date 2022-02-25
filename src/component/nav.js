@@ -60,9 +60,9 @@ class Nav extends Component {
               </select>
          
 
-            <div className="navIcon">
+            <NavLink to="/cart" className="navIcon">
               <img src={cart} alt="cart-icon" />
-            </div>
+            </NavLink>
 
           </div>
         </div>

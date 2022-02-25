@@ -32,7 +32,7 @@ class ProductThumbnail extends Component {
     const { product, currencies } = this.props;
 
     //console.log(currencies)
-    const currency = product.prices.filter(
+   const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
     );
 
