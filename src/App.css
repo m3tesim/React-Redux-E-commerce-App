@@ -292,7 +292,6 @@ input[type="radio"]:checked + label {
   justify-content: space-between;
   align-items: center;
   padding: .5em;
-  border-bottom: 1px solid #a2a3a2
 }
 .model-header .title {
   font-size: 1.25rem;
