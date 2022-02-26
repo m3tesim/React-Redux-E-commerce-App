@@ -17,7 +17,7 @@ export default class PopUp extends Component {
       <div className={`model ${this.state.active}`}>
         <div className="model-header">
           <div className="title"> {title}</div>
-          <button  onClick={()=>this.setActive()} className="close-button">&times; </button>
+          <button  onClick={()=>this.setActive()} className="icon-button">&times; </button>
         </div>
 
         <div className="model-body">

@@ -236,7 +236,7 @@ class ProductInfo extends Component {
             ""
           )}
             <button
-              className="cart-btn"
+              className="action-btn"
               onClick={() => this.addItem()}
               disabled={this.validation()}>
               ADD TO CART

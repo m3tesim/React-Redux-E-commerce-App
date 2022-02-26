@@ -78,7 +78,7 @@ font-style: normal;
   text-decoration: "none";
   color: #1D1F22;
 }
-.cart-btn {
+.action-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -298,13 +298,16 @@ input[type="radio"]:checked + label {
   font-size: 1.25rem;
 }
 
-.model-header .close-button{
+.icon-button{
   cursor: pointer;
   border: none;
   outline: none;
   background: none;
   font-size: 1.25rem;
   font-weight: bold;
+  color: #585858;
+  margin: 0;
+  padding: 0;
 }
 .model-body{
   padding: .5em;
@@ -342,6 +345,13 @@ justify-content: space-between;
 align-items: center;
 padding: .5em;
 }
+
+.cart-info .img-toggle {
+  align-content: center;
+  text-align: center;
+  }
+
+
 .cart-img{
   display: block;
   min-width: 50px;
