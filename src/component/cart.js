@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Nav from "./nav";
+import { Link } from "react-router-dom";
 class Cart extends Component {
   state = {
     total: 0,
@@ -15,6 +16,16 @@ class Cart extends Component {
   };
 
   render() {
+    if (this.props.cart.items.length === 0)
+      return (
+        <div>
+          <h3>Cart</h3>
+          <div className="cart-container">
+            <p>Cart is empty</p>
+            <Link to="/">Go Shopping </Link>
+          </div>
+        </div>
+      );
     const { cart, currencies } = this.props;
 
     // this function filter the products currency  based on the currency type in store state "currencies"
@@ -28,11 +39,10 @@ class Cart extends Component {
       .reduce((partialSum, a) => partialSum + a, 0);
 
     return (
-      <div>
-        <Nav />
-        <h3>Cart</h3>
 
         <div className="cart-container">
+        <h3>Cart</h3>
+
           {cart.items.map((i, index) => (
             <>
               <Item
@@ -43,16 +53,15 @@ class Cart extends Component {
               />
             </>
           ))}
-        </div>
 
-        <div className="model-header">
-          <h4>
-            Total: {allPrices[0][0].currency.symbol}
-            {total}{" "}
-          </h4>
-          <button className="action-btn">Check Out</button>
+          <div className="model-header">
+            <h4>
+              Total: {allPrices[0][0].currency.symbol}
+              {total}
+            </h4>
+            <button className="action-btn">Check Out</button>
+          </div>
         </div>
-      </div>
     );
   }
 }
@@ -66,12 +75,10 @@ function mapStateToProps({ cart, currencies }) {
   };
 }
 
-class Item extends Component {
+export class Item extends Component {
   render() {
-
     const { product, currencies } = this.props;
 
-    
     const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
     );
@@ -122,8 +129,7 @@ export class ImgToggle extends Component {
     val: false,
   };
 
-  
-// dynamic toggling of the product imges  using thier index value
+  // dynamic toggling of the product imges  using thier index value
   ImgIndexUp = (value) => {
     if (
       0 <= this.state.imgIndex &&

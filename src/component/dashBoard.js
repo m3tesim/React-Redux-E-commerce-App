@@ -11,7 +11,7 @@ class DashBoard extends Component {
     // const data = dispatch(getproductByCategory("clothes"))
     return (
       <div>
-        <Nav />
+        
         <div style={{textAlign:"left",marginLeft:"3em"}} >
         <h3>{category.name.toUpperCase()}</h3>
 

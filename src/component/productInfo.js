@@ -4,7 +4,6 @@ import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import PopUp from "./popUp";
-import Gallery from "./gallery";
 
 class ProductInfo extends Component {
   state = {
@@ -185,10 +184,10 @@ class ProductInfo extends Component {
                 <h5>{atr.name}</h5>
 
                 <div className="atributes">
-                  {atr.items.map((i, index) => (
-                    <>
+                  {atr.items.map((i) => (
+                    <div  key={i.id}
+                    >
                       <input
-                        key={index}
                         type="radio"
                         id={i.value + "1"}
                         name={atr.name}
@@ -196,7 +195,7 @@ class ProductInfo extends Component {
                         onChange={(e) => this.changeAttribute(e, atr.name)}
                       />
                       <label htmlFor={i.value + "1"}> {i.value}</label>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>

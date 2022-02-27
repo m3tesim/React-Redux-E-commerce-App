@@ -49,15 +49,14 @@ class ProductThumbnail extends Component {
           />
         </Link>
 
-        {this.state.hover ? (
+      
           <div>
-            <button href="#" onClick={() => this.addItem()}>
-              <img id="cart" src={cart} alt="cart-icon" />
-            </button>
+            <a href="#" onClick={() => this.addItem()}>
+              <img id="cart" src={cart} alt="cart-icon" className="navIcon" />
+            </a >
           </div>
-        ) : (
-          ""
-        )}
+     
+        
         <Link to={`/product/${product.id}`}>
           <div>{product.name}</div>
         </Link>
