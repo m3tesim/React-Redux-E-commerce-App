@@ -6,7 +6,6 @@ import { getproductByCategory } from "../actions/productsAction";
 import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
 import { Item} from "./cart";
-import Cart from "./cart";
 
 class Nav extends Component {
   state = {
@@ -69,7 +68,7 @@ class Nav extends Component {
                 <img src={cartIcon} alt="cart-icon" className="navIcon" />
               </a>
 
-              <div  className={`dropdown-content  ${this.state.dropDown && `active`}`}>
+              <div   className={`dropdown-content  ${this.state.dropDown && `active`}`}>
             <DropDownCart  cart={cart} currencies={currencies}/>
 
               </div>
@@ -92,16 +91,6 @@ function mapStateToProps({ categories, currencies ,cart}) {
   };
 }
 
-export class DropDown extends Component {
-  render() {
-    return (
-      < >
-        dropDown
-       
-      </>
-    );
-  }
-}
 
 class DropDownCart extends Component {
   
@@ -123,7 +112,7 @@ class DropDownCart extends Component {
     return (
 
         <div className="cart-container">
-        <h3>Cart</h3>
+        <p> <strong>My bag:</strong> {cart.items.length} items</p>
 
           {cart.items.map((i, index) => (
             <>
@@ -133,15 +122,15 @@ class DropDownCart extends Component {
                 currencies={currencies}
                 totalAmount={this.totalAmount}
               />
+
             </>
           ))}
 
           <div className="model-header">
           
-            <button className="action-btn">Check Out</button>
+            <NavLink    to='/cart' className="action-btn viewBag">View bag</NavLink>
 
           </div>
-          <Link to='/cart' className="action-btn">View bag</Link>
 
         </div>
     );

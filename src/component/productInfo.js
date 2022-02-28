@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import PopUp from "./popUp";
+import{ PopUp} from "./popUp";
 
 class ProductInfo extends Component {
   state = {
@@ -14,7 +14,7 @@ class ProductInfo extends Component {
     "Touch ID in keyboard": null,
     attributes: [],
 
-    validation: false,
+    feedBack: false,
   };
 
   // let user change size
@@ -68,7 +68,7 @@ class ProductInfo extends Component {
         items: result,
       };
     });
-    this.setState({ validation: true });
+    this.setState({ feedBack: true });
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
     });
@@ -223,7 +223,7 @@ class ProductInfo extends Component {
           </h4>
         </div>
         <div>
-          {this.state.validation === true ? (
+          {this.state.feedBack === true ? (
             <Link className="link" to="/">
               <PopUp 
               title={"product have been added to the cart"}

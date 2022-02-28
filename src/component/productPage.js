@@ -13,7 +13,6 @@ class ProductPage extends Component {
     );
     return (
       <div >
-        <Nav />
 
 
         <div className="product-container">

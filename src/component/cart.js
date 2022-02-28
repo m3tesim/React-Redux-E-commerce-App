@@ -1,17 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { totalPrice } from "../actions/addToCart";
 class Cart extends Component {
   state = {
-    total: 0,
-  };
-
-  totalAmount = (itemAmount) => {
-    console.log("item   amout " + itemAmount);
-
-    console.log("total amout  " + this.state.total);
-
-    return;
+    addedPrice: 0,
   };
 
   render() {
@@ -33,34 +26,50 @@ class Cart extends Component {
     );
 
     // calculating the total price amount of all products
-    const total = allPrices
+    let total = allPrices
       .map((i) => i[0].amount)
-      .reduce((partialSum, a) => partialSum + a, 0);
+      .reduce((Sum, a) => Sum + a, 0);
+
+
+
+    const changeTotalPrice =(value)=>{
+  
+      this.setState(()=>({
+        addedPrice:this.state.addedPrice+value
+      }))
+
+    }
+
+    console.log("state total price " +this.state.total)
+
+
 
     return (
-
-        <div className="cart-container">
+      <div className="cart-container">
         <h3>Cart</h3>
 
-          {cart.items.map((i, index) => (
-            <>
-              <Item
-                key={index}
-                product={i}
-                currencies={currencies}
-                totalAmount={this.totalAmount}
-              />
-            </>
-          ))}
+        {cart.items.map((i, index) => (
+          <>
+            <Item
+              key={index}
+              product={i}
+              currencies={currencies}
+              totalAmount={this.totalAmount}
+              changeTotalPrice={changeTotalPrice }
+            />
+          </>
+        ))}
 
-          <div className="model-header">
-            <h4>
-              Total: {allPrices[0][0].currency.symbol}
-              {total}
-            </h4>
-            <button className="action-btn">Check Out</button>
-          </div>
+        <div className="model-header">
+          <h4>
+            Total: {allPrices[0][0].currency.symbol}
+            { this.state.addedPrice+total}
+          </h4>
+          <button  className="action-btn">
+            Check Out
+          </button>
         </div>
+      </div>
     );
   }
 }
@@ -75,6 +84,25 @@ function mapStateToProps({ cart, currencies }) {
 }
 
 export class Item extends Component {
+  state = {
+    value: 1,
+  };
+
+  Increment = (value) => {
+
+    this.setState(() => ({
+      value: this.state.value + 1,
+    }));
+    this.props.changeTotalPrice(value)
+  };
+
+  decrement = (value) => {
+    this.setState(() => ({
+      value: this.state.value - 1,
+    }));
+    this.props.changeTotalPrice(-value)
+
+  };
   render() {
     const { product, currencies } = this.props;
 
@@ -87,10 +115,15 @@ export class Item extends Component {
         <hr />
         <div className="cart-info">
           <div>
-            <h4>{product.brand}</h4>
+            <p>
+              {" "}
+              <strong>{product.brand}</strong>
+            </p>
             <h5>{product.name} </h5>
             <h4>
-              {currency[0].currency.symbol}{currency[0].amount}
+              {currency[0].currency.symbol}
+              {currency[0].amount}
+             { this.state.value!==1&&<span style={{color:"#5ece7b"}}> x {this.state.value}</span>} 
             </h4>
 
             {product.attributes.map((atr) => {
@@ -114,8 +147,65 @@ export class Item extends Component {
                 );
             })}
           </div>
-          <ImgToggle product={product} />
+
+          <div className="left">
+            <div className="increament">
+              <button
+                onClick={() => this.Increment(currency[0].amount)}
+                disabled={this.state.value === 10}>
+                +
+              </button>
+
+              <span> {this.state.value}</span>
+              <button
+                onClick={() => this.decrement(currency[0].amount)}
+                disabled={this.state.value === 1}>
+                -
+              </button>
+            </div>
+            <ImgToggle product={product} />
+          </div>
         </div>
+      </div>
+    );
+  }
+}
+
+export class Increment extends Component {
+  state = {
+    value: 1,
+  };
+
+  Increment = () => {
+    this.setState(() => ({
+      value: this.state.value + 1,
+    }));
+
+    console.log("Clicked increment");
+    this.props.dispatch(totalPrice(this.props.total));
+  };
+
+  decrement = () => {
+    this.setState(() => ({
+      value: this.state.value - 1,
+    }));
+  };
+
+  render() {
+    return (
+      <div className="increament">
+        <button
+          onClick={() => this.Increment()}
+          disabled={this.state.value === 10}>
+          +
+        </button>
+
+        <span> {this.state.value}</span>
+        <button
+          onClick={() => this.decrement()}
+          disabled={this.state.value === 1}>
+          -
+        </button>
       </div>
     );
   }

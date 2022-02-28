@@ -12,7 +12,6 @@
   max-width: 90%;
   padding: 5em 4% 5em 4%;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 .App-header {
@@ -85,20 +84,35 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 32px;
-
+  padding: 2% 4% ;
+  line-height: 19px;
+  
   font-family: Raleway;
-  font-size: 14px;
+  font-size: 1.25rem;
   font-style: normal;
-  line-height: 10px;
-  letter-spacing: 0em;
   text-align: center;
   background: #5ece7b;
   color: #ffffff;
   width: 292px;
+  height: fit-content;
   border: 0ch;
+  border-radius: 4%;
   cursor: pointer;
 }
+.viewBag{
+  color:black;
+  background-color:white ;
+  text-decoration: none;
+  border: 1px solid black;
+}
+
+
+.viewBag:hover{
+  color:white;
+  background-color:black ;
+  border:1px solid black;
+}
+
 .action-btn:disabled {
   background: #5c5e5c;
   color: #313030;
@@ -280,6 +294,7 @@ input[type="radio"]:checked + label {
   transform: translate(-50%, -50%) scale(1);
 }
 
+
 .model-header {
   display: flex;
   justify-content: space-between;
@@ -305,6 +320,35 @@ input[type="radio"]:checked + label {
   padding: 0.5em;
 }
 
+/* this is the add product  pop up*/
+.add-model {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: #ffffff;
+  width: 80%;
+  height: 80%;
+  overflow: auto;
+}
+.add-model.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.add-model .product-container {
+
+  margin-left: 0;
+}
+
+.add-model .product-info {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+
 #overlay {
   position: fixed;
   opacity: 0;
@@ -325,6 +369,8 @@ input[type="radio"]:checked + label {
   flex-direction: column;
   justify-content: center;
   padding-left: 5%;
+  padding-bottom: 5%;
+
 
   flex-basis: 40%;
   width: 90%;
@@ -341,10 +387,11 @@ input[type="radio"]:checked + label {
 .cart-info div{
   width: 50%;
 
+
 }
 
 .cart-info .img-toggle {
-  align-content: right;
+  align-content: center;
   text-align: right;
   display: flex;
   flex-direction: column;
@@ -362,6 +409,40 @@ margin-right: 0%;
   padding-left: 1em;
   align-self: right;
 }
+.increament{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-content: center;
+  align-items:center;
+  height: 10%;
+}
+.increament button{
+  background: none;
+  width: fit-content;
+  height: 20%;
+  border: 1px solid black;
+  font-size: calc(5px + 2vmin);
+  cursor: pointer;
+
+}
+.increament button:disabled{
+  color: #9e9d9d;
+  background-color: #cfcfcf;
+  border: none;
+}
+
+
+.increament span{
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.left{
+  display: flex;
+  align-items:center
+}
+
 
 
 .dropdown-cart {
@@ -381,9 +462,17 @@ margin-right: 0%;
   width: 325px;
   height: auto;
   pointer-events: none;
+
+}
+.dropdown-content .cart-info{
+  font-size: 15px !important;
+
 }
 .dropdown-content.active {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  font-size: calc(10px + 1vmin);
+
 }
+

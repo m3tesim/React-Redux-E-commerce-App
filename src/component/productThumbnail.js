@@ -3,13 +3,19 @@ import { connect } from "react-redux";
 import cart from "../assets/cart.svg";
 import addToCart from "../actions/addToCart";
 import { Link } from "react-router-dom";
+import {AddPopUp} from "./popUp";
 class ProductThumbnail extends Component {
   state = {
     hover: false,
+    addPopUp:false,
   };
 
   addItem = () => {
-    this.props.dispatch(addToCart(this.props.product));
+
+    this.setState({ addPopUp: true });
+
+
+    //this.props.dispatch(addToCart(this.props.product));
   };
   onMouseOver = () => {
     console.log("hover");
@@ -52,6 +58,7 @@ class ProductThumbnail extends Component {
       
           <div>
             <a href="#" onClick={() => this.addItem()}>
+
               <img id="cart" src={cart} alt="cart-icon" className="navIcon" />
             </a >
           </div>
@@ -63,6 +70,16 @@ class ProductThumbnail extends Component {
         <div>
           {currency[0].currency.symbol} {currency[0].amount}{" "}
         </div>
+        {this.state.addPopUp === true ? (
+              <AddPopUp
+              title={"product have been added to the cart"}
+              currency={currency}
+              product={product}
+              />
+
+          ) : (
+            ""
+          )}
       </div>
     );
   }
