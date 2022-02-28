@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Nav from "./nav";
 import { Link } from "react-router-dom";
 class Cart extends Component {
   state = {
@@ -89,9 +88,9 @@ export class Item extends Component {
         <div className="cart-info">
           <div>
             <h4>{product.brand}</h4>
-            <p>{product.name} </p>
+            <h5>{product.name} </h5>
             <h4>
-              {currency[0].currency.symbol} {currency[0].amount}
+              {currency[0].currency.symbol}{currency[0].amount}
             </h4>
 
             {product.attributes.map((atr) => {
@@ -103,7 +102,6 @@ export class Item extends Component {
               if (atr.name === "Color")
                 return (
                   <h5>
-                    {" "}
                     {atr.name}: <span style={style}>{atr.items.id}</span>{" "}
                   </h5>
                 );
@@ -163,9 +161,7 @@ export class ImgToggle extends Component {
             &and;
           </button>
         )}
-
         <img className="cart-img" src={product.gallery[this.state.imgIndex]} />
-
         {this.state.imgIndex === 0 ? (
           ""
         ) : (

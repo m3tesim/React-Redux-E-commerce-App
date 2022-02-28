@@ -16,7 +16,6 @@ class Nav extends Component {
 
   dropDown = () => {
     this.setState({ dropDown: !this.state.dropDown });
-    console.log("state" + this.state.dropDown);
   };
 
   // change products in the srore to much the selected category
@@ -40,7 +39,7 @@ class Nav extends Component {
               <li key={index}>
                 <NavLink
                   className="navLink"
-                  style={{ textDecoration: "none" }}
+                  
                   to="/"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>
@@ -114,7 +113,6 @@ class DropDownCart extends Component {
     if (this.props.cart.items.length === 0)
     return (
       <div>
-        <h3>Cart</h3>
         <div className="cart-container">
           <p>Cart is empty</p>
           <Link to="/">Go Shopping </Link>
@@ -141,7 +139,10 @@ class DropDownCart extends Component {
           <div className="model-header">
           
             <button className="action-btn">Check Out</button>
+
           </div>
+          <Link to='/cart' className="action-btn">View bag</Link>
+
         </div>
     );
   }

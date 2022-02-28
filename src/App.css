@@ -4,18 +4,16 @@
   align-content: center;
   flex-direction: column;
   font-size: calc(5px + 2vmin);
-font-family: Raleway;
-font-style: normal;
-
-
+  font-family: Raleway;
+  font-style: normal;
 }
 
 .app-container {
   max-width: 90%;
-  margin: 5em auto 5em 3em;
+  padding: 5em 4% 5em 4%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-
-
 
 .App-header {
   min-height: 100vh;
@@ -26,8 +24,8 @@ font-style: normal;
 .categories-container {
   display: inline-block;
 }
-.nav-container{
-  width: 90%;
+.nav-container {
+  width: 100%;
   min-height: 150px;
 }
 
@@ -42,30 +40,35 @@ font-style: normal;
 }
 .leftnavBar {
   display: flex;
-  margin-right: 10px;
-  padding: 10px;
-
 }
-
 
 .navBar div li {
   display: inline;
   margin-left: 1em;
+  color: #5ece7b;
+}
+
+.navLink {
+  text-decoration: none;
+  display: inline;
+  margin-left: 1em;
+  color: #5ece7b;
+}
+.navLink:hover {
+  text-decoration: none;
+  color: #5ece7b;
 }
 
 .navIcon {
   min-width: 1.2em;
   max-width: 1.2em;
   min-height: 1.2em;
-  margin-left: 5px;
-
 }
 
 .logo {
   pointer-events: none;
-  margin-right: 5em;
 }
-.dropDown{
+.dropDown {
   cursor: pointer;
   border: none;
   outline: none;
@@ -74,10 +77,9 @@ font-style: normal;
   margin-right: 1em;
 }
 
-
-.navLink{
+.navLink {
   text-decoration: "none";
-  color: #1D1F22;
+  color: #1d1f22;
 }
 .action-btn {
   display: flex;
@@ -91,13 +93,13 @@ font-style: normal;
   line-height: 10px;
   letter-spacing: 0em;
   text-align: center;
-  background: #5ECE7B;
+  background: #5ece7b;
   color: #ffffff;
   width: 292px;
   border: 0ch;
   cursor: pointer;
 }
-.action-btn:disabled{
+.action-btn:disabled {
   background: #5c5e5c;
   color: #313030;
 }
@@ -124,7 +126,6 @@ font-style: normal;
   grid-template-rows: auto;
 }
 
-
 .thubnail {
   width: 350px;
   height: fit-content;
@@ -137,10 +138,8 @@ font-style: normal;
   width: 350px;
   height: auto;
 }
-.thubnail:hover
- {
+.thubnail:hover {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
-
 }
 
 .product-container {
@@ -148,7 +147,6 @@ font-style: normal;
   flex-direction: row;
   margin-left: 5em;
 }
-
 
 .images-container img:first-child {
   max-height: 511px;
@@ -203,7 +201,6 @@ font-style: normal;
   width: 292px;
   align-items: flex-start;
   cursor: pointer;
-
 }
 
 /*
@@ -215,16 +212,14 @@ input[type="radio"] {
   margin: 10px;
 }
 
-#color-input{
-
+#color-input {
   display: inline-block;
-  margin-right:10px;
+  margin-right: 10px;
   padding: 10px;
-  width:20px;
-  height:20px ;
+  width: 20px;
+  height: 20px;
   background-color: #ffffff;
   text-align: center;
-
 }
 
 /*
@@ -245,7 +240,6 @@ input[type="radio"] + label {
   border-width: 1px;
   border-color: black;
   cursor: pointer;
-
 }
 /*
 Change background color for label next to checked radio button
@@ -257,48 +251,46 @@ input[type="radio"]:checked + label {
   background-color: #1d1f22;
   border-width: 3px;
   border-color: #1f1f1f;
-
 }
 
-#discription{
+#discription {
   color: #1d1f22;
 }
 
-.link{
+.link {
   text-decoration: none;
 }
 
-/* this is pop up styling    */   
+/* this is pop up styling    */
 
-.model{
+.model {
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%) scale(0);
+  transform: translate(-50%, -50%) scale(0);
   transition: 200ms ease-in-out;
-  border-radius:10px;
+  border-radius: 10px;
   z-index: 10;
   background-color: #ffffff;
   width: 500px;
   min-height: 300px;
   max-width: 80%;
 }
-.model.active{
-  transform: translate(-50%,-50%) scale(1);
-
+.model.active {
+  transform: translate(-50%, -50%) scale(1);
 }
 
-.model-header{
+.model-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: .5em;
+  padding: 0.5em;
 }
 .model-header .title {
   font-size: 1.25rem;
 }
 
-.icon-button{
+.icon-button {
   cursor: pointer;
   border: none;
   outline: none;
@@ -309,83 +301,89 @@ input[type="radio"]:checked + label {
   margin: 0;
   padding: 0;
 }
-.model-body{
-  padding: .5em;
+.model-body {
+  padding: 0.5em;
 }
 
-#overlay{
+#overlay {
   position: fixed;
   opacity: 0;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0,0,0,.5);
+  background-color: rgba(0, 0, 0, 0.5);
   pointer-events: none;
 }
-#overlay.active{
-opacity: 1;
-pointer-events: all;
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
-
-.cart-container{
+.cart-container {
   display: flex;
   flex-direction: column;
-justify-content: center;
-margin-left: 5em;
-  text-align: left;
-  width: 1000px;
+  justify-content: center;
+  padding-left: 5%;
 
-
+  flex-basis: 40%;
+  width: 90%;
 }
 
-.cart-info{
-display: flex;
-justify-content: space-between;
-align-items: center;
-padding: .5em;
+.cart-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em;
+  font-size: calc(5px + 2vmin);
+  font-weight: 500;
+}
+.cart-info div{
+  width: 50%;
+
 }
 
 .cart-info .img-toggle {
-  align-content: center;
-  text-align: center;
-  }
+  align-content: right;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+width:calc(5px + 40vmin);
+}
 
-
-.cart-img{
+.cart-img {
   display: block;
-  min-width: 50px;
-  max-width: 200px;
-  max-height: 300px;
+  max-width: 100%;
+  max-height: auto;
+
   height: auto;
   cursor: pointer;
-
-  padding: 1em;
-  border-radius: 0px;
-}
-.dropdown-cart{
-  position:relative;
-  
-
+margin-right: 0%;
+  padding-left: 1em;
+  align-self: right;
 }
 
-.dropdown-content{
-  position:absolute;
- right:0;
- top:calc(100%+.5rem);
- background-color: #ffffff;
- padding: .75rem;
- border-radius: .25rem;
- opacity: 0;
- box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19);
- transform: translateY(-10px);
-transition:  opacity 100ms ease-in-out ,transform 50ms ease-in-out;
-width: 300px; 
-height: auto
 
+.dropdown-cart {
+  position: relative;
+}
+
+.dropdown-content {
+  position: absolute;
+  right: 0;
+  top: calc(100%+0.5rem);
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  opacity: 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+  transform: translateY(-10px);
+  transition: opacity 100ms ease-in-out, transform 50ms ease-in-out;
+  width: 325px;
+  height: auto;
+  pointer-events: none;
 }
 .dropdown-content.active {
   opacity: 1;
   transform: translateY(0);
+  pointer-events: auto;
 }
