@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { totalPrice } from "../actions/addToCart";
+import { totalPrice , productCount} from "../actions/addToCart";
 class Cart extends Component {
   state = {
     addedPrice: 0,
@@ -49,12 +49,12 @@ let total = allPrices
     const { cart, currencies } = this.props;
 
   
-// thtis will add the price of the prudect that it's number increased 
+// thtis will add the price of the prudect that it's number increased  to the total 
     const changeTotalPrice =(value)=>{
-
-     this.setState(()=>({
+      this.setState(()=>({
         addedPrice:this.state.addedPrice+value
       }))
+
       this.totalPriceState(value,cart.price[0]);
 
       
@@ -74,9 +74,11 @@ let total = allPrices
             <Item
               key={index}
               product={i}
+              cart={cart}
               currencies={currencies}
               totalAmount={this.totalAmount}
-              changeTotalPrice={changeTotalPrice }
+              dispatch={this.props.dispatch}
+              changeTotalPrice={changeTotalPrice}
             />
           </>
         ))}
@@ -84,7 +86,7 @@ let total = allPrices
         <div className="navBar">
           <h4>
        
-            { "the new total " + Math.round(cart.price[0]* 100) / 100}
+            { "Total " + Math.round(cart.price[0]* 100) / 100}
           </h4>
           <button  className="action-btn">
             Check Out
@@ -111,10 +113,15 @@ export class Item extends Component {
 
   Increment = (value) => {
 
-    this.setState(() => ({
-      value: this.state.value + 1,
-    }));
+      this.setState(() => ({
+        value: this.state.value + 1,
+      }));
+ 
     this.props.changeTotalPrice(value)
+
+    const count=Object.assign(this.props.product, {count: this.state.value+1 });
+    this.props.dispatch(productCount(count))
+
   };
 
   decrement = (value) => {
@@ -123,9 +130,15 @@ export class Item extends Component {
     }));
     this.props.changeTotalPrice(-value)
 
+    const count=Object.assign(this.props.product, {count: this.state.value-1 });
+    this.props.dispatch(productCount(count))
+
+
   };
+
+
   render() {
-    const { product, currencies } = this.props;
+    const { product, currencies,cart } = this.props;
 
     const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
@@ -173,14 +186,14 @@ export class Item extends Component {
             <div className="increament">
               <button
                 onClick={() => this.Increment(currency[0].amount)}
-                disabled={this.state.value === 10}>
+                disabled={cart.count[product.id] === 10}>
                 +
               </button>
 
-              <span> {this.state.value}</span>
+              <span>{cart.count[product.id]?cart.count[product.id]:1} </span>
               <button
                 onClick={() => this.decrement(currency[0].amount)}
-                disabled={this.state.value === 1}>
+                disabled={cart.count[product.id] === 1}>
                 -
               </button>
             </div>
@@ -192,45 +205,10 @@ export class Item extends Component {
   }
 }
 
-export class Increment extends Component {
-  state = {
-    value: 1,
-  };
+ connect(mapStateToProps)(Item) ;
 
-  Increment = () => {
-    this.setState(() => ({
-      value: this.state.value + 1,
-    }));
 
-    console.log("Clicked increment");
-    this.props.dispatch(totalPrice(this.props.total));
-  };
 
-  decrement = () => {
-    this.setState(() => ({
-      value: this.state.value - 1,
-    }));
-  };
-
-  render() {
-    return (
-      <div className="increament">
-        <button
-          onClick={() => this.Increment()}
-          disabled={this.state.value === 10}>
-          +
-        </button>
-
-        <span> {this.state.value}</span>
-        <button
-          onClick={() => this.decrement()}
-          disabled={this.state.value === 1}>
-          -
-        </button>
-      </div>
-    );
-  }
-}
 
 export class ImgToggle extends Component {
   state = {
@@ -284,3 +262,46 @@ export class ImgToggle extends Component {
     );
   }
 }
+
+
+
+
+/*export class Increment extends Component {
+  state = {
+    value: 1,
+  };
+
+    Increment = () => {
+    this.setState(() => ({
+      value: this.state.value + 1,
+    }));
+
+    this.props.dispatch(totalPrice(this.props.total));
+  };
+
+  decrement = () => {
+    this.setState(() => ({
+      value: this.state.value - 1,
+    }));
+  };
+
+  render() {
+    return (
+      <div className="increament">
+        <button
+          onClick={() => this.Increment()}
+          disabled={this.state.value === 10}>
+          +
+        </button>
+
+        <span> {this.state.value}</span>
+        <button
+          onClick={() => this.decrement()}
+          disabled={this.state.value === 1}>
+          -
+        </button>
+      </div>
+    );
+  }
+}
+*/

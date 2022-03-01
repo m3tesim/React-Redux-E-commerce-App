@@ -43,9 +43,7 @@ class ProductInfo extends Component {
     let missedAttributes = product.attributes.filter(
       (atr) => this.state[atr.name] === null
     );
-    const warning = missedAttributes.map((atr) => (
-      <p> `Please choose ${atr.name} `</p>
-    ));
+   
 
     if (missedAttributes.length === 0) return false;
     else return true;
@@ -54,9 +52,6 @@ class ProductInfo extends Component {
   // add the customised item to the cart
   addItem = () => {
     const { product } = this.props;
-   
-
-
 
     const allAttributes = this.state.attributes.map((atr) => {
       let result = this.setAttribute(atr);
@@ -75,6 +70,8 @@ class ProductInfo extends Component {
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
     });
+
+
 // the if condition closes the addproduct popUp  after submitting 
     if (this.props.close)
     {

@@ -1,5 +1,6 @@
 export const ADD_TO_CART = "add_to_cart";
 export const TOTAL_PRICE = "total_price";
+export const PRODUCT_COUNT="product_count";
 
 function addToCart(product) {
   return {
@@ -14,6 +15,14 @@ export function totalPrice(price) {
     price,
   };
 }
+
+export function productCount(productCount) {
+  return {
+    type:PRODUCT_COUNT,
+    productCount,
+  };
+}
+
 
 
 export default addToCart;

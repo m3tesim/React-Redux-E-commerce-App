@@ -126,6 +126,7 @@ class DropDownCart extends Component {
                 product={i}
                 currencies={currencies}
                 totalAmount={this.totalAmount}
+                cart={cart}
               />
 
             </>
