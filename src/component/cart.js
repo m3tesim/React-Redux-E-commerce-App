@@ -6,6 +6,34 @@ class Cart extends Component {
   state = {
     addedPrice: 0,
   };
+  componentDidMount() {
+    const { cart, currencies } = this.props;
+
+  // this function filter the products currency  based on the currency type in store state "currencies"
+  const allPrices = cart.items.map((i) =>
+  i.prices.filter((c) => c.currency.label === currencies.label)
+);
+
+// calculating the total price amount of all products
+let total = allPrices
+  .map((i) => i[0].amount)
+  .reduce((Sum, a) => Sum + a, 0);
+
+
+
+    this.totalPriceState(this.state.addedPrice,total);
+  }
+
+
+  totalPriceState=(addedPrice,total)=>{
+    const {dispatch}=this.props
+   
+     const price= addedPrice+total
+     
+   dispatch(totalPrice(price))
+
+
+  }
 
   render() {
     if (this.props.cart.items.length === 0)
@@ -20,27 +48,20 @@ class Cart extends Component {
       );
     const { cart, currencies } = this.props;
 
-    // this function filter the products currency  based on the currency type in store state "currencies"
-    const allPrices = cart.items.map((i) =>
-      i.prices.filter((c) => c.currency.label === currencies.label)
-    );
-
-    // calculating the total price amount of all products
-    let total = allPrices
-      .map((i) => i[0].amount)
-      .reduce((Sum, a) => Sum + a, 0);
-
-
-
-    const changeTotalPrice =(value)=>{
   
-      this.setState(()=>({
+// thtis will add the price of the prudect that it's number increased 
+    const changeTotalPrice =(value)=>{
+
+     this.setState(()=>({
         addedPrice:this.state.addedPrice+value
       }))
+      this.totalPriceState(value,cart.price[0]);
 
+      
     }
 
-    console.log("state total price " +this.state.total)
+    
+
 
 
 
@@ -62,8 +83,8 @@ class Cart extends Component {
 
         <div className="navBar">
           <h4>
-            Total: {allPrices[0][0].currency.symbol}
-            { this.state.addedPrice+total}
+       
+            { "the new total " + Math.round(cart.price[0]* 100) / 100}
           </h4>
           <button  className="action-btn">
             Check Out

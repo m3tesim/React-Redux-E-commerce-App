@@ -12,7 +12,7 @@ export function cart(state={ items: [] ,price:[]}, action) {
         case TOTAL_PRICE:
         return {
         ...state,
-           price: [...state.price, action.price] 
+           price: [ action.price] 
         };
         default:
             return state;

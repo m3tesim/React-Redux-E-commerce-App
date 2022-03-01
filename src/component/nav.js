@@ -130,11 +130,20 @@ class DropDownCart extends Component {
 
             </>
           ))}
-
+ <h5>
+       
+       { "total " + Math.round(cart.price[0]* 100) / 100}
+     </h5>
           <div className="navBar">
+         
+         
+      
           
             <NavLink   onClick={()=>close()}  to='/cart' className="action-btn viewBag">View bag</NavLink>
 
+            <button  className="action-btn">
+            Check Out
+          </button>
           </div>
 
         </div>
