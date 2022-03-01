@@ -52,16 +52,24 @@
   display: inline;
   margin-left: 1em;
   color: #5ece7b;
+
 }
+
+
 .navLink:hover {
   text-decoration: none;
   color: #5ece7b;
 }
 
+.navLinkActive{
+  border-bottom: 3px solid #5ece7b;
+  padding-bottom: 1em;
+}
 .navIcon {
   min-width: 1.2em;
   max-width: 1.2em;
   min-height: 1.2em;
+  cursor: pointer;
 }
 
 .logo {
@@ -118,21 +126,8 @@
   color: #313030;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
-}
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
-}
+
 
 .container {
   display: grid;
@@ -146,7 +141,9 @@
   margin: 5em auto 5em 3em;
   text-align: left;
   line-height: 1.6;
-  background-color: aliceblue;
+  background-color: #F9F9F9;
+  padding: 2%;
+
 }
 .thubnailimg {
   width: 350px;
@@ -154,6 +151,13 @@
 }
 .thubnail:hover {
   box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 10px 40px 0 rgba(0, 0, 0, 0.19);
+}
+
+.thubnail .navIcon{
+ width: 150px;
+ max-width: 2.5em;
+ transform: translate(-30px, -40px);
+
 }
 
 .product-container {
@@ -164,15 +168,16 @@
 
 .images-container img:first-child {
   max-height: 511px;
-  max-width: 610px;
+  max-width: 350px;
 
   padding: 1em;
+  margin-left: 1em;
   float: right;
 }
 
 .images-container .img-nav {
   max-height: 511px;
-  width: auto;
+  width: 150px;
 
   overflow-y: auto;
   display: flex;
@@ -269,6 +274,7 @@ input[type="radio"]:checked + label {
 
 #discription {
   color: #1d1f22;
+  max-width: 20em;
 }
 
 .link {
@@ -289,6 +295,8 @@ input[type="radio"]:checked + label {
   width: 500px;
   min-height: 300px;
   max-width: 80%;
+  color: #1d1f22;
+
 }
 .model.active {
   transform: translate(-50%, -50%) scale(1);
@@ -300,9 +308,17 @@ input[type="radio"]:checked + label {
   justify-content: space-between;
   align-items: center;
   padding: 0.5em;
+  padding-left: 1em;
+  text-align: center;
+  background-color: #5ece7b;
+
 }
 .model-header .title {
   font-size: 1.25rem;
+  font-weight:bold;
+  color:rgb(14, 14, 14)
+
+
 }
 
 .icon-button {
@@ -318,6 +334,7 @@ input[type="radio"]:checked + label {
 }
 .model-body {
   padding: 0.5em;
+  display: flex;
 }
 
 /* this is the add product  pop up*/

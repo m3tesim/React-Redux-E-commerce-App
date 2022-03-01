@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import Nav from "./nav";
 import Gallery from "./gallery";
 import ProductInfo from "./productInfo";
-import PopUp from "./popUp";
 class ProductPage extends Component {
   render() {
     const { product, currencies } = this.props;

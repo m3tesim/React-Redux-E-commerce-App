@@ -136,7 +136,7 @@ export function _getAllProducts() {
         res(
           myClient.query({ query: ALL_PRODUCTS }).then((result) => result.data)
         ),
-      1000
+      10
     );
   });
 }
@@ -150,7 +150,7 @@ export function _getCategories() {
             .query({ query: All_CATEGORIES })
             .then((result) => result.data)
         ),
-      1000
+      10
     );
   });
 }
@@ -162,7 +162,7 @@ export function _getCurrencies() {
         res(
           myClient.query({ query: CURRENCIES }).then((result) => result.data)
         ),
-      1000
+      10
     );
   });
 }
@@ -191,7 +191,7 @@ export function _getProductsByCategory(category) {
             })
             .then((result) => result.data)
         ),
-      1000
+      10
     );
   });
 }
@@ -205,7 +205,7 @@ export function _getProductsById(id) {
             .query({ query: PRODUCT_BY_ID, variables: { id } })
             .then((result) => result.data)
         ),
-      1000
+      10
     );
   });
 }

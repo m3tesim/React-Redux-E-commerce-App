@@ -60,7 +60,7 @@ class Cart extends Component {
           </>
         ))}
 
-        <div className="model-header">
+        <div className="navBar">
           <h4>
             Total: {allPrices[0][0].currency.symbol}
             { this.state.addedPrice+total}

@@ -11,6 +11,7 @@ class Nav extends Component {
   state = {
     category: this.props.categories.categories,
     dropDown: false,
+    active:"all"
   };
 
   dropDown = () => {
@@ -21,14 +22,19 @@ class Nav extends Component {
 
   ChangeCategory = (category) => {
     this.props.dispatch(getproductByCategory(category));
+    this.setState({active:category})
+
   };
 
   selectedCurrency = (value) => {
     this.props.dispatch(getCurrency({ __typename: "Currency", label: value }));
   };
 
+  
   render() {
     /* */
+
+
     const { categories,cart ,currencies} = this.props;
     return (
       <div className="nav-container">
@@ -37,8 +43,7 @@ class Nav extends Component {
             {categories.categories.map((g, index) => (
               <li key={index}>
                 <NavLink
-                  className="navLink"
-                  
+                  className={`navLink ${this.state.active ===g.name&&"navLinkActive"} `}
                   to="/"
                   onClick={() => this.ChangeCategory(g.name)}
                   value={g.name}>
@@ -69,7 +74,7 @@ class Nav extends Component {
               </a>
 
               <div   className={`dropdown-content  ${this.state.dropDown && `active`}`}>
-            <DropDownCart  cart={cart} currencies={currencies}/>
+            <DropDownCart  cart={cart} currencies={currencies} close={this.dropDown} />
 
               </div>
             </div>
@@ -98,7 +103,7 @@ class DropDownCart extends Component {
 
   render() {
   
-    const { cart, currencies } = this.props;
+    const { cart, currencies,close } = this.props;
     if (this.props.cart.items.length === 0)
     return (
       <div>
@@ -126,9 +131,9 @@ class DropDownCart extends Component {
             </>
           ))}
 
-          <div className="model-header">
+          <div className="navBar">
           
-            <NavLink    to='/cart' className="action-btn viewBag">View bag</NavLink>
+            <NavLink   onClick={()=>close()}  to='/cart' className="action-btn viewBag">View bag</NavLink>
 
           </div>
 

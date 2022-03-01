@@ -28,14 +28,12 @@ class ProductInfo extends Component {
 
   // return the cutome product after the user changed attributes
   setAttribute = (atr) => {
-    console.log("this is atr from additem " + JSON.stringify(atr));
 
     const { product } = this.props;
 
     let atribute = product.attributes
       .filter((i) => i.id === atr)[0]
       .items.filter((i) => i.value === this.state[atr]);
-    console.log("this is the cahnege atribute " + JSON.stringify(atribute));
     return atribute[0];
   };
 
@@ -56,6 +54,9 @@ class ProductInfo extends Component {
   // add the customised item to the cart
   addItem = () => {
     const { product } = this.props;
+   
+
+
 
     const allAttributes = this.state.attributes.map((atr) => {
       let result = this.setAttribute(atr);
@@ -68,10 +69,18 @@ class ProductInfo extends Component {
         items: result,
       };
     });
+
     this.setState({ feedBack: true });
+
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
     });
+// the if condition closes the addproduct popUp  after submitting 
+    if (this.props.close)
+    {
+      const delay =()=>{setTimeout(this.props.close, 2000);}
+      delay()
+    }
 
     this.props.dispatch(addToCart(cutomeProduct));
   };
@@ -226,8 +235,8 @@ class ProductInfo extends Component {
           {this.state.feedBack === true ? (
             <Link className="link" to="/">
               <PopUp 
-              title={"product have been added to the cart"}
-              body={`"${product.name} have been added to the cart  `}
+              product={product}
+              currency= {currency}
               />
 
             </Link>
