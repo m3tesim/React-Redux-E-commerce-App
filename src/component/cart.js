@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { totalPrice , productCount} from "../actions/addToCart";
+
 class Cart extends Component {
   state = {
     addedPrice: 0,
@@ -60,10 +61,6 @@ let total = allPrices
       
     }
 
-    
-
-
-
 
     return (
       <div className="cart-container">
@@ -76,7 +73,6 @@ let total = allPrices
               product={i}
               cart={cart}
               currencies={currencies}
-              totalAmount={this.totalAmount}
               dispatch={this.props.dispatch}
               changeTotalPrice={changeTotalPrice}
             />
@@ -157,7 +153,8 @@ export class Item extends Component {
             <h4>
               {currency[0].currency.symbol}
               {currency[0].amount}
-             { this.state.value!==1&&<span style={{color:"#5ece7b"}}> x {this.state.value}</span>} 
+             { cart.count[product.id]?
+              cart.count[product.id] !==1&&<span style={{color:"#5ece7b"}}> x {cart.count[product.id]}</span>:""} 
             </h4>
 
             {product.attributes.map((atr) => {
@@ -193,7 +190,7 @@ export class Item extends Component {
               <span>{cart.count[product.id]?cart.count[product.id]:1} </span>
               <button
                 onClick={() => this.decrement(currency[0].amount)}
-                disabled={cart.count[product.id] === 1}>
+                disabled={cart.count[product.id] ? cart.count[product.id] === 1 :true}>
                 -
               </button>
             </div>
@@ -264,44 +261,3 @@ export class ImgToggle extends Component {
 }
 
 
-
-
-/*export class Increment extends Component {
-  state = {
-    value: 1,
-  };
-
-    Increment = () => {
-    this.setState(() => ({
-      value: this.state.value + 1,
-    }));
-
-    this.props.dispatch(totalPrice(this.props.total));
-  };
-
-  decrement = () => {
-    this.setState(() => ({
-      value: this.state.value - 1,
-    }));
-  };
-
-  render() {
-    return (
-      <div className="increament">
-        <button
-          onClick={() => this.Increment()}
-          disabled={this.state.value === 10}>
-          +
-        </button>
-
-        <span> {this.state.value}</span>
-        <button
-          onClick={() => this.decrement()}
-          disabled={this.state.value === 1}>
-          -
-        </button>
-      </div>
-    );
-  }
-}
-*/
