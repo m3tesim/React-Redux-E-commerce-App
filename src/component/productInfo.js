@@ -94,14 +94,14 @@ class ProductInfo extends Component {
         switch (atr.name) {
           case "Size":
             return (
-              <div>
+              <div key={atr.name}>
                 <h5>{atr.name}</h5>
 
                 <div className="atributes">
-                  {atr.items.map((i, index) => (
+                  {atr.items.map((i) => (
                     <>
                       <input
-                        key={index}
+                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -117,13 +117,13 @@ class ProductInfo extends Component {
             );
           case "Capacity":
             return (
-              <div>
+              <div key={atr.name}>
                 <h5>{atr.name}</h5>
                 <div className="atributes">
-                  {atr.items.map((i, index) => (
+                  {atr.items.map((i) => (
                     <>
                       <input
-                        key={index}
+                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -139,16 +139,16 @@ class ProductInfo extends Component {
             );
           case "Color":
             return (
-              <div>
+              <div key={atr.name}>
                 <h5>
                   {atr.name} :{" "}
                   <span style={{ color: "gray" }}>{this.state.color}</span>
                 </h5>
                 <div className="atributes">
-                  {atr.items.map((i, index) => (
+                  {atr.items.map((i) => (
                     <>
                       <input
-                        key={index}
+                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -167,13 +167,13 @@ class ProductInfo extends Component {
             );
           case "With USB 3 ports":
             return (
-              <div>
+              <div key={atr.name}>
                 <h5>{atr.name}</h5>
                 <div className="atributes">
-                  {atr.items.map((i, index) => (
+                  {atr.items.map((i) => (
                     <>
                       <input
-                        key={index}
+                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -189,13 +189,15 @@ class ProductInfo extends Component {
 
           case "Touch ID in keyboard":
             return (
-              <div>
+              <div key={atr.name}>
                 <h5>{atr.name}</h5>
 
                 <div className="atributes">
                   {atr.items.map((i) => (
                     <div key={i.id}>
                       <input
+                       key={i.id}
+
                         type="radio"
                         id={i.value + "1"}
                         name={atr.name}

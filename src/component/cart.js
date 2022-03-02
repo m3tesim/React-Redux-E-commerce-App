@@ -60,6 +60,7 @@ let total = allPrices
 
       
     }
+    
 
 
     return (
@@ -82,7 +83,7 @@ let total = allPrices
         <div className="navBar">
           <h4>
        
-            { "Total " + Math.round(cart.price[0]* 100) / 100}
+            { "Total "  + Math.round(cart.price[0]* 100) / 100}
           </h4>
           <button  className="action-btn">
             Check Out
