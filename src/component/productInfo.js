@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import{ PopUp} from "./popUp";
+import { PopUp } from "./popUp";
 
 class ProductInfo extends Component {
   state = {
@@ -28,7 +28,6 @@ class ProductInfo extends Component {
 
   // return the cutome product after the user changed attributes
   setAttribute = (atr) => {
-
     const { product } = this.props;
 
     let atribute = product.attributes
@@ -40,12 +39,16 @@ class ProductInfo extends Component {
   validation = () => {
     const { product } = this.props;
 
+    // this check the choosen atributes in the state array "attributes" 
+    //if there is one attribute that not choosed it will add it to miisedAtrributes 
     let missedAttributes = product.attributes.filter(
       (atr) => this.state[atr.name] === null
     );
-   
 
-    if (missedAttributes.length === 0) return false;
+
+    if (product.inStock===false)return true
+    else if (missedAttributes.length === 0) return false;
+
     else return true;
   };
 
@@ -71,12 +74,12 @@ class ProductInfo extends Component {
       attributes: allAttributes,
     });
 
-
-// the if condition closes the addproduct popUp  after submitting 
-    if (this.props.close)
-    {
-      const delay =()=>{setTimeout(this.props.close, 2000);}
-      delay()
+    // the if condition closes the addproduct popUp  after submitting
+    if (this.props.close) {
+      const delay = () => {
+        setTimeout(this.props.close, 2000);
+      };
+      delay();
     }
 
     this.props.dispatch(addToCart(cutomeProduct));
@@ -191,8 +194,7 @@ class ProductInfo extends Component {
 
                 <div className="atributes">
                   {atr.items.map((i) => (
-                    <div  key={i.id}
-                    >
+                    <div key={i.id}>
                       <input
                         type="radio"
                         id={i.value + "1"}
@@ -231,21 +233,23 @@ class ProductInfo extends Component {
         <div>
           {this.state.feedBack === true ? (
             <Link className="link" to="/">
-              <PopUp 
-              product={product}
-              currency= {currency}
-              />
-
+              <PopUp product={product} currency={currency} />
             </Link>
           ) : (
             ""
           )}
-            <button
-              className="action-btn"
-              onClick={() => this.addItem()}
-              disabled={this.validation()}>
-              ADD TO CART
-            </button>
+
+          {product.inStock === false && (
+            <div>
+              <h4 style={{color:"grey"}}> OUT OF STOCK !</h4>
+            </div>
+          )}
+          <button
+            className="action-btn"
+            onClick={() => this.addItem()}
+            disabled= { this.validation()}>
+            ADD TO CART
+          </button>
         </div>
         <br></br>
         <div

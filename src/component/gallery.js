@@ -15,8 +15,10 @@ export default class Gallery extends Component {
     const { product } = this.props;
     return (
       <div>
-        <div className="images-container">
+        <div className="images-container ">
+
           <img src={product.gallery[this.state.value]} />
+
 
           <div className="img-nav">
             {product.gallery.map((img, index) => (
@@ -28,7 +30,9 @@ export default class Gallery extends Component {
               />
             ))}
           </div>
+
         </div>
+
       </div>
     );
   }
