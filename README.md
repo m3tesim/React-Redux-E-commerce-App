@@ -7,7 +7,7 @@ this is a simple e-commerce app build with react and redux using apollo for grap
 providing a good user experience through action feedBack 
 ### to start the app 
 first you have to download the local server from  [here](https://github.com/scandiweb/junior-react-endpoint.git) and start it <br/>
-socend clone this repositery  run `npm start` in the console.<br/>
+socend clone this repositery  run  `npm install` then `npm start` in the console.<br/>
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.<br/>
 
 
