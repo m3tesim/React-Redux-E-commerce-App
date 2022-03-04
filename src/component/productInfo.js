@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
 import { PopUp } from "./popUp";
 
 class ProductInfo extends Component {
@@ -39,16 +38,14 @@ class ProductInfo extends Component {
   validation = () => {
     const { product } = this.props;
 
-    // this check the choosen atributes in the state array "attributes" 
-    //if there is one attribute that not choosed it will add it to miisedAtrributes 
+    // this check the choosen atributes in the state array "attributes"
+    //if there is one attribute that not choosed it will add it to miisedAtrributes
     let missedAttributes = product.attributes.filter(
       (atr) => this.state[atr.name] === null
     );
 
-
-    if (product.inStock===false)return true
+    if (product.inStock === false) return true;
     else if (missedAttributes.length === 0) return false;
-
     else return true;
   };
 
@@ -99,9 +96,8 @@ class ProductInfo extends Component {
 
                 <div className="atributes">
                   {atr.items.map((i) => (
-                    <>
+                    <div key={i.id}>
                       <input
-                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -110,7 +106,7 @@ class ProductInfo extends Component {
                         required
                       />
                       <label htmlFor={i.id}> {i.value}</label>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -121,9 +117,8 @@ class ProductInfo extends Component {
                 <h5>{atr.name}</h5>
                 <div className="atributes">
                   {atr.items.map((i) => (
-                    <>
+                    <div key={i.id}>
                       <input
-                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -132,7 +127,7 @@ class ProductInfo extends Component {
                         required
                       />
                       <label htmlFor={i.id}> {i.value}</label>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -146,9 +141,8 @@ class ProductInfo extends Component {
                 </h5>
                 <div className="atributes">
                   {atr.items.map((i) => (
-                    <>
+                    <div key={i.id}>
                       <input
-                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -160,7 +154,7 @@ class ProductInfo extends Component {
                         id="color-input"
                         style={{ backgroundColor: i.value }}
                         htmlFor={i.id}></label>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -171,9 +165,8 @@ class ProductInfo extends Component {
                 <h5>{atr.name}</h5>
                 <div className="atributes">
                   {atr.items.map((i) => (
-                    <>
+                    <div key={i.id}>
                       <input
-                        key={i.id}
                         type="radio"
                         id={i.id}
                         name={atr.name}
@@ -181,7 +174,7 @@ class ProductInfo extends Component {
                         onChange={(e) => this.changeAttribute(e, atr.name)}
                       />
                       <label htmlFor={i.id}> {i.value}</label>
-                    </>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -196,8 +189,6 @@ class ProductInfo extends Component {
                   {atr.items.map((i) => (
                     <div key={i.id}>
                       <input
-                       key={i.id}
-
                         type="radio"
                         id={i.value + "1"}
                         name={atr.name}
@@ -212,7 +203,7 @@ class ProductInfo extends Component {
             );
 
           default:
-            return <p>""</p>;
+            return <p key={atr.name}>""</p>;
         }
       });
     } catch (e) {
@@ -234,22 +225,20 @@ class ProductInfo extends Component {
         </div>
         <div>
           {this.state.feedBack === true ? (
-            <Link className="link" to="/">
-              <PopUp product={product} currency={currency} />
-            </Link>
+            <PopUp product={product} currency={currency} />
           ) : (
             ""
           )}
 
           {product.inStock === false && (
             <div>
-              <h4 style={{color:"grey"}}> OUT OF STOCK !</h4>
+              <h4 style={{ color: "grey" }}> OUT OF STOCK !</h4>
             </div>
           )}
           <button
             className="action-btn"
             onClick={() => this.addItem()}
-            disabled= { this.validation()}>
+            disabled={this.validation()}>
             ADD TO CART
           </button>
         </div>

@@ -36,7 +36,7 @@ class ProductThumbnail extends Component {
           <div className="navBar">
             <div>
               <Link className="navLink" to={`/product/${product.id}`}>
-                <div>{product.name}</div>
+                <div> {product.brand} {product.name}</div>
               </Link>
               <div>
                 {currency[0].currency.symbol} {currency[0].amount}{" "}
