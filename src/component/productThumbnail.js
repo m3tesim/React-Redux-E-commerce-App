@@ -6,8 +6,15 @@ import { AddPopUp } from "./popUp";
 class ProductThumbnail extends Component {
   state = {
     addPopUp: false,
+    showCart:false
   };
 
+  toggleCart=()=>{
+    this.setState({ showCart:!this.state.showCart  });
+    console.log("Mouce in"+this.state.showCart)
+
+
+  }
   addItem = () => {
     this.setState({ addPopUp: true });
 
@@ -24,7 +31,7 @@ class ProductThumbnail extends Component {
 
     return (
       <div className="divContainer">
-        <div className="thubnail  ">
+        <div className="thubnail  " onMouseEnter={()=>this.toggleCart()} onMouseLeave={()=>this.toggleCart()} >
           <Link to={`/product/${product.id}`}>
             <img
               className="thubnailimg  "
@@ -42,11 +49,13 @@ class ProductThumbnail extends Component {
                 {currency[0].currency.symbol} {currency[0].amount}{" "}
               </div>
             </div>
-            <div className="navIcon">
+
+            <div className={`navIconimg  ${this.state.showCart===true&&'cartToggle' }`  } >
               <a href="#" onClick={() => this.addItem()}>
                 <img id="cart" src={cart} alt="cart-icon" />
               </a>
             </div>
+            
           </div>
           {product.inStock===false && (
             <div className="outOfSock ">

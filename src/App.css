@@ -74,12 +74,20 @@
   max-width: 1.5em;
 }
 
-.navIcon img:hover{
+.navIconimg{
   min-width: 3em;
   max-width: 3em;
-
-
+  transform: translate(-50%, -50%) scale(0);
+  transition: 200ms ease-in-out;
 }
+
+
+
+.cartToggle {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+
 .logo {
   pointer-events: none;
 }
@@ -90,7 +98,77 @@
   background: none;
   font-size: 1.25rem;
   margin-right: 1em;
+  padding: .2em .75em;
+
+  
 }
+
+.dropDown:focus ,.dropDown:hover{
+  border: none;
+  background: none;
+
+
+}
+.dropDown option{
+  background: none;
+  border: none;
+
+
+}
+
+.currencyDropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100%+0.5rem);
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  opacity: 0;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.19);
+  transform: translateY(-10px);
+  transition: opacity 100ms ease-in-out, transform 50ms ease-in-out;
+  width: 100px;
+  height: auto;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.currencyDropdown.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  font-size: calc(10px + 1vmin);
+}
+.dropdown-content .currency{
+  width: fit-content;
+  background-color: rebeccapurple;
+} 
+
+.currency{
+display: flex;
+flex-direction: column;
+font-size: 1.25rem;
+
+
+}
+.currency button{
+  text-align: center;
+  align-content: center;
+  align-items: center;
+  background: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  border: none;
+  padding: .75em .1em;
+  
+  }
+  .currency button:hover {
+    
+    background-color: rgb(214, 211, 211);
+    
+    
+    }
+
+
 
 .navLink {
   text-decoration: "none";
@@ -463,6 +541,15 @@ input[type="radio"]:checked + label {
 
 .dropdown-cart {
   position: relative;
+  margin-left: 1.5em;
+
+
+}
+.dropdown-cart a{
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.5rem;
+
 
 }
 
@@ -477,9 +564,10 @@ input[type="radio"]:checked + label {
   transform: translateY(-10px);
   transition: opacity 100ms ease-in-out, transform 50ms ease-in-out;
   width: 325px;
-  height: auto;
+  height: 40vmax;
   pointer-events: none;
   z-index: 10;
+  overflow-y: auto;
 }
 .dropdown-content .cart-info {
   font-size: 15px !important;
