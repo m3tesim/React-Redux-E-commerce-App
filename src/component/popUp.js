@@ -58,7 +58,7 @@ export class AddPopUp extends Component {
   };
 
   render() {
-    const { title, currency, product } = this.props;
+    const { currency, product } = this.props;
 
     return (
       <>

@@ -25,7 +25,8 @@
 }
 .nav-container {
   width: 100%;
-  min-height: 150px;
+  min-height: 100%;
+  margin-bottom: 50px;
 }
 
 .navBar {
@@ -221,7 +222,7 @@ font-size: 1.25rem;
 .thubnail {
   width: 350px;
   height: fit-content;
-  margin: 5em auto 5em 3em;
+  margin: 5em auto 1em 3em;
   text-align: left;
   line-height: 1.6;
   background-color: #f9f9f9;
@@ -475,6 +476,15 @@ input[type="radio"]:checked + label {
   flex-basis: 40%;
   width: 90%;
 }
+.cart-container .noItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 5%;
+  padding-bottom: 5%;
+  flex-basis: 40%;
+  width: 90%;
+}
 
 .cart-info {
   display: flex;
@@ -542,9 +552,21 @@ input[type="radio"]:checked + label {
 .dropdown-cart {
   position: relative;
   margin-left: 1.5em;
+}
+.cart-badge{
+ background-color: #1d1f22;
+ color: #ffffff;
+ font-size: 50pxs;
+ border-radius: 100%;
+ text-align: center;
+ transform: translate(+50%, -200%) scale(1);
+ transition: 200ms ease-in-out;
 
+ 
 
 }
+
+
 .dropdown-cart a{
   cursor: pointer;
   font-weight: 500;
@@ -584,7 +606,6 @@ input[type="radio"]:checked + label {
 .divContainer{
   width: 350px;
   height: fit-content;
-  margin: 5em auto 5em 3em;
 	  position: relative;
 
 }

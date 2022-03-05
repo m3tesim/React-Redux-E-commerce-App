@@ -7,6 +7,7 @@ import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
 import { Item } from "./cart";
 import { totalPrice } from "../actions/addToCart";
+import ReactDOM from "react-dom";
 
 class Nav extends Component {
   state = {
@@ -14,18 +15,18 @@ class Nav extends Component {
     dropDown: false,
     active: "all",
     addedPrice: 0,
-    currencyDropDown:false,
+    currencyDropDown: false,
   };
 
   dropDown = () => {
     this.setState({ dropDown: !this.state.dropDown });
-    this.ubdateTotalPrice()
+    this.ubdateTotalPrice();
   };
 
   currencyDropDown = () => {
     this.setState({ currencyDropDown: !this.state.currencyDropDown });
   };
-  
+
   // change products in the srore to much the selected category
 
   ChangeCategory = (category) => {
@@ -33,11 +34,14 @@ class Nav extends Component {
     this.setState({ active: category });
   };
 
-  selectedCurrency = (value,name) => {
-   // e.preventdefault();
-    //const value = e.target.value;
-    console.log(name)
-    this.props.dispatch(getCurrency({ __typename: "Currency", label: value ,symbol:name}));
+  selectedCurrency = (value, name) => {
+    this.setState({
+      currencyDropDown: false,
+      dropDown: false,
+    });
+    this.props.dispatch(
+      getCurrency({ __typename: "Currency", label: value, symbol: name })
+    );
   };
 
   ubdateTotalPrice = () => {
@@ -66,6 +70,24 @@ class Nav extends Component {
     dispatch(totalPrice(price));
   };
 
+  componentDidMount() {
+    document.addEventListener("click", this.handleClickOutside, true);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("click", this.handleClickOutside, true);
+  }
+
+  handleClickOutside = (event) => {
+    const domNode = ReactDOM.findDOMNode(this);
+
+    if (!domNode || !domNode.contains(event.target)) {
+      this.setState({
+        currencyDropDown: false,
+        dropDown: false,
+      });
+    }
+  };
   render() {
     /* */
 
@@ -103,35 +125,30 @@ class Nav extends Component {
             <img src={shoppingbag} alt="Logo" />
           </div>
 
-
-        
-
-
           <div className="leftnavBar">
-
-          <div className="dropdown-cart">
+            <div className="dropdown-cart">
               <a onClick={() => this.currencyDropDown()}>
-                  <span> {currencies.symbol}  ⌄ </span>
-               </a>
+                <span> {currencies.symbol} ⌄ </span>
+              </a>
 
               <div
                 className={`currencyDropdown  ${
                   this.state.currencyDropDown && `active`
                 }`}>
-             <CurrencySwitcher selectedCurrency={this.selectedCurrency} />
-
+                <CurrencySwitcher selectedCurrency={this.selectedCurrency} />
               </div>
             </div>
-
-
 
             <div className="dropdown-cart">
               <a onClick={() => this.dropDown()}>
                 <img src={cartIcon} alt="cart-icon" className="navIcon" />
               </a>
+              {cart.items.length > 0 && (
+                <div className="cart-badge">{cart.items.length}</div>
+              )}
 
               <div
-                className={`dropdown-content  ${
+                className={`dropdown-content   ${
                   this.state.dropDown && `active`
                 }`}>
                 <DropDownCart
@@ -141,7 +158,6 @@ class Nav extends Component {
                   close={this.dropDown}
                   changeTotalPrice={changeTotalPrice}
                   dispatch={dispatch}
-
                 />
               </div>
             </div>
@@ -163,38 +179,38 @@ function mapStateToProps({ categories, currencies, cart }) {
   };
 }
 
+// ... ✂
+
 export class CurrencySwitcher extends Component {
   state = {
     value: "$",
   };
 
   changeCurrency = (e) => {
-    const newValue=e.target.value
-    const newValue2=e.target.name
+    const newValue = e.target.value;
+    const newValue2 = e.target.name;
 
     this.setState(() => ({
       value: newValue,
     }));
-    this.props.selectedCurrency(newValue,newValue2)
-
+    this.props.selectedCurrency(newValue, newValue2);
   };
   render() {
     return (
       <div className="currency">
-
-        <button  onClick={(e)=>this.changeCurrency(e)} value="USD" name="$">
+        <button onClick={(e) => this.changeCurrency(e)} value="USD" name="$">
           $ USD
         </button>
-        <button onClick={(e)=>this.changeCurrency(e)} value="GBP" name="£">
+        <button onClick={(e) => this.changeCurrency(e)} value="GBP" name="£">
           £ GBP
         </button>
-        <button onClick={(e)=>this.changeCurrency(e)} value="AUD" name="A$">
+        <button onClick={(e) => this.changeCurrency(e)} value="AUD" name="A$">
           A$ AUD
         </button>
-        <button onClick={(e)=>this.changeCurrency(e)} value="JPY" name="¥">
+        <button onClick={(e) => this.changeCurrency(e)} value="JPY" name="¥">
           ¥ JPY
         </button>
-        <button onClick={(e)=>this.changeCurrency(e)} value="RUB" name="₽">
+        <button onClick={(e) => this.changeCurrency(e)} value="RUB" name="₽">
           ₽ RUB
         </button>
       </div>
@@ -212,7 +228,7 @@ class DropDownCart extends Component {
     if (this.props.cart.items.length === 0)
       return (
         <div>
-          <div className="cart-container">
+          <div className="cart-container noItems">
             <p>Cart is empty</p>
             <Link to="/">Keep Shopping </Link>
           </div>
@@ -227,8 +243,7 @@ class DropDownCart extends Component {
         </p>
 
         {cart.items.map((i, index) => (
-          <div   key={index}
-          >
+          <div key={index}>
             <Item
               product={i}
               currencies={currencies}

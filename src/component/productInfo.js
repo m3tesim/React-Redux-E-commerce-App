@@ -82,8 +82,12 @@ class ProductInfo extends Component {
     this.props.dispatch(addToCart(cutomeProduct));
   };
 
+
+ 
+
   render() {
     const { product, currency } = this.props;
+
 
     let attributes;
     try {
@@ -243,10 +247,12 @@ class ProductInfo extends Component {
           </button>
         </div>
         <br></br>
+        
         <div
           id="discription"
-          dangerouslySetInnerHTML={{ __html: product.description }}
-        />
+
+          />
+
       </div>
     );
   }

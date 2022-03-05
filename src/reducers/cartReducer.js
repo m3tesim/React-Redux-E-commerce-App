@@ -1,4 +1,4 @@
-import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT} from "../actions/addToCart";
+import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT,REMOVE_PRODUCT} from "../actions/addToCart";
 
 export function cart(state={ items: [] ,price:[] , count:{}}, action) {
 
@@ -8,6 +8,15 @@ export function cart(state={ items: [] ,price:[] , count:{}}, action) {
         ...state,
            items: [...state.items, action.product] 
         };
+        case REMOVE_PRODUCT:
+          
+          return {
+          ...state,
+             items: [...state.items.filter((i)=>(
+               i.id!==action.productID
+             ))] 
+          };
+  
 
         case TOTAL_PRICE:
         return {

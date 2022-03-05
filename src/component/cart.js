@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { totalPrice, productCount } from "../actions/addToCart";
+import { totalPrice, productCount , removeFromCart} from "../actions/addToCart";
 
 class Cart extends Component {
   state = {
     addedPrice: 0,
   };
-  componentDidMount() {
+  componentWillMount() {
+
+    this.calculateTotalPrice()
+  }
+
+  
+  calculateTotalPrice=()=>{
     const { cart, currencies } = this.props;
 
     // this function filter the products currency  based on the currency type in store state "currencies"
@@ -22,6 +28,8 @@ class Cart extends Component {
 
     this.totalPriceState(this.state.addedPrice, total);
   }
+
+ 
 
   totalPriceState = (addedPrice, total) => {
     const { dispatch } = this.props;
@@ -44,6 +52,8 @@ class Cart extends Component {
       );
     const { cart, currencies } = this.props;
 
+
+
     // thtis will add the price of the prudect that it's number increased  to the total
     const changeTotalPrice = (value) => {
       this.setState(() => ({
@@ -65,6 +75,7 @@ class Cart extends Component {
               currencies={currencies}
               dispatch={this.props.dispatch}
               changeTotalPrice={changeTotalPrice}
+              calculateTotal={this.calculateTotalPrice}
             />
           </div>
         ))}
@@ -117,6 +128,16 @@ export class Item extends Component {
     this.props.dispatch(productCount(count));
   };
 
+
+  removeItem=(productID)=>{
+    //console.log(JSON.stringify(this.props.changeTotalPrice))
+
+
+    this.props.dispatch(removeFromCart(productID));
+
+
+
+    }
   render() {
     const { product, currencies, cart } = this.props;
 
@@ -167,6 +188,8 @@ export class Item extends Component {
                   </h5>
                 );
             })}
+                      <button onClick={()=>this.removeItem(product.id)}> Remove </button>
+
           </div>
 
           <div className="left">
@@ -187,6 +210,7 @@ export class Item extends Component {
                 }>
                 -
               </button>
+
             </div>
             <ImgToggle product={product} />
           </div>
