@@ -586,7 +586,8 @@ input[type="radio"]:checked + label {
   transform: translateY(-10px);
   transition: opacity 100ms ease-in-out, transform 50ms ease-in-out;
   width: 325px;
-  height: 40vmax;
+  height: fit-content;
+  max-height: 40vmax;
   pointer-events: none;
   z-index: 10;
   overflow-y: auto;

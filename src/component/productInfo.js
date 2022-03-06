@@ -65,13 +65,12 @@ class ProductInfo extends Component {
       };
     });
 
-    this.setState({ feedBack: true });
 
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
     });
 
-    // the if condition closes the addproduct popUp  after submitting
+    // the if condition closes the addproduct popUp in  after submitting
     if (this.props.close) {
       const delay = () => {
         setTimeout(this.props.close, 2000);
@@ -79,15 +78,38 @@ class ProductInfo extends Component {
       delay();
     }
 
-    this.props.dispatch(addToCart(cutomeProduct));
+    const duplicateProduct = this.props.cart.items.filter(
+      (i) =>{
+       return i.id === cutomeProduct.id
+      } 
+    );
+
+    const originalProduct= duplicateProduct.map((product)=>(
+       JSON.stringify(product)!==JSON.stringify(cutomeProduct)
+    ))
+
+    if(originalProduct.includes(false))
+    {   alert("Product already in cart")
+
+   
+
+
+    }else {
+
+      this.setState({ feedBack: true });
+
+      this.props.dispatch(addToCart(cutomeProduct));
+    }
+
+    console.log(duplicateProduct);
+    console.log("original Product"+JSON.stringify(originalProduct));
+
+
+   
   };
-
-
- 
 
   render() {
     const { product, currency } = this.props;
-
 
     let attributes;
     try {
@@ -247,15 +269,17 @@ class ProductInfo extends Component {
           </button>
         </div>
         <br></br>
-        
-        <div
-          id="discription"
 
-          />
-
+        <div id="discription" />
       </div>
     );
   }
 }
 
-export default connect()(ProductInfo);
+export default connect(mapStateToProps)(ProductInfo);
+
+function mapStateToProps({ cart }) {
+  return {
+    cart,
+  };
+}

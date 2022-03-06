@@ -11,7 +11,6 @@ class ProductThumbnail extends Component {
 
   toggleCart=()=>{
     this.setState({ showCart:!this.state.showCart  });
-    console.log("Mouce in"+this.state.showCart)
 
 
   }
