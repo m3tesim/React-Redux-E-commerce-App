@@ -26,10 +26,10 @@ export function productCount(productCount) {
 }
 
 
-export function removeFromCart(productID) {
+export function removeFromCart(product) {
   return {
     type:REMOVE_PRODUCT,
-    productID,
+    product,
   };
 }
 

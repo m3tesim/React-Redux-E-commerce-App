@@ -68,6 +68,7 @@ class ProductInfo extends Component {
 
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
+      count:1
     });
 
     // the if condition closes the addproduct popUp in  after submitting

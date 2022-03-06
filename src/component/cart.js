@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { totalPrice, productCount , removeFromCart} from "../actions/addToCart";
+import { totalPrice, productCount, removeFromCart } from "../actions/addToCart";
 
 class Cart extends Component {
   state = {
     addedPrice: 0,
   };
   componentWillMount() {
-
-    this.calculateTotalPrice()
+    this.calculateTotalPrice();
   }
 
-  
-  calculateTotalPrice=()=>{
+  calculateTotalPrice = () => {
     const { cart, currencies } = this.props;
 
     // this function filter the products currency  based on the currency type in store state "currencies"
@@ -27,9 +25,7 @@ class Cart extends Component {
       .reduce((Sum, a) => Sum + a, 0);
 
     this.totalPriceState(this.state.addedPrice, total);
-  }
-
- 
+  };
 
   totalPriceState = (addedPrice, total) => {
     const { dispatch } = this.props;
@@ -51,8 +47,6 @@ class Cart extends Component {
         </div>
       );
     const { cart, currencies } = this.props;
-
-
 
     // thtis will add the price of the prudect that it's number increased  to the total
     const changeTotalPrice = (value) => {
@@ -98,56 +92,42 @@ function mapStateToProps({ cart, currencies }) {
   };
 }
 
-
-
-
 export class Item extends Component {
-  state = {
-    value: 1,
-  };
-
-   Increment = (value) => {
-    this.setState(() => ({
-      value: this.state.value + 1,
-    }));
+ 
+  Increment = (value) => {
+    const { product} = this.props;
 
     this.props.changeTotalPrice(value);
 
-    const count = Object.assign(this.props.product, {
-      count: this.state.value + 1,
-    });
-    this.props.dispatch(productCount(count));
+
+    const productcount = { ...this.props.product, count: product.count+ 1 };
+
+    this.props.dispatch(productCount(productcount));
   };
 
   decrement = (value) => {
-    this.setState(() => ({
-      value: this.state.value - 1,
-    }));
+    const { product} = this.props;
+
+   
     this.props.changeTotalPrice(-value);
 
-    const count = Object.assign(this.props.product, {
-      count: this.state.value - 1,
-    });
-    this.props.dispatch(productCount(count));
+    const productcount = { ...this.props.product, count: product.count- 1 };
+
+    this.props.dispatch(productCount(productcount));
   };
 
-
-  removeItem=(productID)=>{
+  removeItem = (productID) => {
     //console.log(JSON.stringify(this.props.changeTotalPrice))
 
-
     this.props.dispatch(removeFromCart(productID));
-
-
-
-    }
+  };
   render() {
     const { product, currencies, cart } = this.props;
 
     const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
     );
-   
+
     return (
       <div>
         <hr />
@@ -161,17 +141,10 @@ export class Item extends Component {
             <h4>
               {currency[0].currency.symbol}
               {currency[0].amount}
-              {cart.count[product.id]
-                ? cart.count[product.id] !== 1 && (
-                    <span style={{ color: "#5ece7b" }}>
-                      {" "}
-                      x {cart.count[product.id]}
-                    </span>
-                  )
-                : ""}
+              {product.count !== 1 && <span style={{ color: "#5ece7b" }}> x {product.count}</span>}
             </h4>
 
-            {product.attributes.map((atr,index) => {
+            {product.attributes.map((atr, index) => {
               const style = {
                 backgroundColor: atr.items.value,
                 width: "200px",
@@ -191,29 +164,23 @@ export class Item extends Component {
                   </h5>
                 );
             })}
-                      <button onClick={()=>this.removeItem(product)}> Remove </button>
-
+            <button onClick={() => this.removeItem(product)}> Remove </button>
           </div>
 
           <div className="left">
             <div className="increament">
               <button
                 onClick={() => this.Increment(currency[0].amount)}
-                disabled={cart.count[product.id] === 10}>
+                disabled={product.count === 10}>
                 +
               </button>
 
-              <span>
-                {cart.count[product.id] ? cart.count[product.id] : 1}{" "}
-              </span>
+              <span>{product.count} </span>
               <button
                 onClick={() => this.decrement(currency[0].amount)}
-                disabled={
-                  cart.count[product.id] ? cart.count[product.id] === 1 : true
-                }>
+                disabled={product.count === 1}>
                 -
               </button>
-
             </div>
             <ImgToggle product={product} />
           </div>
@@ -277,4 +244,3 @@ export class ImgToggle extends Component {
     );
   }
 }
-

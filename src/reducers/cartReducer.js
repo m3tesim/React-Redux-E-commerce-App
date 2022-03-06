@@ -1,4 +1,4 @@
-import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT,REMOVE_PRODUCT} from "../actions/addToCart";
+import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT,REMOVE_PRODUCT, productCount} from "../actions/addToCart";
 
 export function cart(state={ items: [] ,price:[] , count:{}}, action) {
 
@@ -13,7 +13,7 @@ export function cart(state={ items: [] ,price:[] , count:{}}, action) {
           return {
           ...state,
              items: [...state.items.filter((i)=>(
-               JSON.stringify(i) !== JSON.stringify(action.productID)
+               JSON.stringify(i) !== JSON.stringify(action.product)
              ))] 
           };
   
@@ -27,24 +27,16 @@ export function cart(state={ items: [] ,price:[] , count:{}}, action) {
 
         case PRODUCT_COUNT:
      
+        const newItems=state.items.filter(i=>(
+          JSON.stringify(i.attributes) !== JSON.stringify(action.productCount.attributes)
 
-         return {
-         ...state,
-            count:{...state.count,
-               [action.productCount.id]: action.productCount.count
-              }
-         };
+        ))
+          return {
+            ...state,
+               items:[...newItems,action.productCount]
+            };
+
         default:
             return state;
         }
       }
-    /*  return {
-         ...state,
-         [qid]: {
-           ...state[qid],
-           [selected]: {
-             ...state[qid][selected],
-             votes: state[qid][selected].votes.concat([authed])
-           }
-         }
-       }*/
