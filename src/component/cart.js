@@ -98,12 +98,15 @@ function mapStateToProps({ cart, currencies }) {
   };
 }
 
+
+
+
 export class Item extends Component {
   state = {
     value: 1,
   };
 
-  Increment = (value) => {
+   Increment = (value) => {
     this.setState(() => ({
       value: this.state.value + 1,
     }));
@@ -144,7 +147,7 @@ export class Item extends Component {
     const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
     );
-
+   
     return (
       <div>
         <hr />
@@ -188,7 +191,7 @@ export class Item extends Component {
                   </h5>
                 );
             })}
-                      <button onClick={()=>this.removeItem(product.id)}> Remove </button>
+                      <button onClick={()=>this.removeItem(product)}> Remove </button>
 
           </div>
 
@@ -274,3 +277,4 @@ export class ImgToggle extends Component {
     );
   }
 }
+

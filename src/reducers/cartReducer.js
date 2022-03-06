@@ -13,7 +13,7 @@ export function cart(state={ items: [] ,price:[] , count:{}}, action) {
           return {
           ...state,
              items: [...state.items.filter((i)=>(
-               i.id!==action.productID
+               JSON.stringify(i) !== JSON.stringify(action.productID)
              ))] 
           };
   

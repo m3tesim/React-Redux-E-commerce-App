@@ -93,17 +93,12 @@ class ProductInfo extends Component {
 
    
 
-
     }else {
 
       this.setState({ feedBack: true });
 
       this.props.dispatch(addToCart(cutomeProduct));
     }
-
-    console.log(duplicateProduct);
-    console.log("original Product"+JSON.stringify(originalProduct));
-
 
    
   };
