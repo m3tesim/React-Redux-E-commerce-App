@@ -96,9 +96,13 @@ class ProductInfo extends Component {
 
     }else {
 
-      this.setState({ feedBack: true });
 
       this.props.dispatch(addToCart(cutomeProduct));
+
+      this.setState({ feedBack: true ,
+        attributes: [],
+      });
+
     }
 
    
