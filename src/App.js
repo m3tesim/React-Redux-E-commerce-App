@@ -17,18 +17,30 @@ class App extends React.Component {
   }
 
   render() {
-    const { loadingDashboard,loadingNav } = this.props;
+    const { loading } = this.props;
     return (
       <div className="app-container">
         <div className="App">
-           {loadingNav === true ? null : <Nav />}
+          {loading === true ? null : <Nav />}
 
           <Switch>
             <Route exact path="/">
-              {loadingDashboard === true ? null : <DashBoard />}
+              {loading === true ? null : <DashBoard />}
             </Route>
 
-            <Route path="/product/:id" component={ProductPage}></Route>
+            {loading === true ? null : (
+              <Route
+                path="/product/:id"
+                render={(props) => {
+                  const {
+                    match: {
+                      params: { id },
+                    },
+                  } = props;
+                  return <ProductPage key={`id=${id}`} {...props} />;
+                }}/>
+                
+            )}
 
             <Route path="/cart" component={Cart}></Route>
           </Switch>
@@ -40,9 +52,8 @@ class App extends React.Component {
 
 export default connect(mapStateToProps)(App);
 
-function mapStateToProps({ currencies ,categories}) {
+function mapStateToProps({ currencies, categories }) {
   return {
-    loadingDashboard: currencies === null,
-    loadingNav: currencies === null,
+    loading: currencies === null,
   };
 }

@@ -116,7 +116,6 @@ class ProductInfo extends Component {
         Color: null,
         "With USB 3 ports": null,
         "Touch ID in keyboard": null,
-        attributes: [],
     
       });
 

@@ -50,9 +50,9 @@ class ProductThumbnail extends Component {
             </div>
 
             <div className={`navIconimg  ${this.state.showCart===true&&'cartToggle' }`  } >
-              <a href="#" onClick={() => this.addItem()}>
-                <img id="cart" src={cart} alt="cart-icon" />
-              </a>
+             
+                <img id="cart" src={cart} alt="cart-icon"  onClick={() => this.addItem()}/>
+             
             </div>
             
           </div>

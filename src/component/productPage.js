@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Gallery from "./gallery";
 import ProductInfo from "./productInfo";
+
 class ProductPage extends Component {
+
+  
   render() {
     const { product, currencies } = this.props;
 
@@ -11,8 +14,6 @@ class ProductPage extends Component {
     );
     return (
       <div >
-
-
         <div className="product-container">
           <Gallery product={product} />
 
@@ -27,11 +28,15 @@ export default connect(mapStateToProps)(ProductPage);
 
 function mapStateToProps({ products, currencies }, props) {
   const { id } = props.match.params;
-  const product = products.category.products.filter((p) => p.id === id);
+  console.log("this is product id "+id)
+
+  const product =products.category.products.filter((p) => p.id === id);
 
   return {
     id,
     product: product[0],
     currencies,
+    loading: currencies === null,
+
   };
 }

@@ -122,7 +122,7 @@ export class Item extends Component {
     this.props.dispatch(removeFromCart(productID));
   };
   render() {
-    const { product, currencies, cart } = this.props;
+    const { product, currencies } = this.props;
 
     const currency = product.prices.filter(
       (c) => c.currency.label === currencies.label
@@ -232,7 +232,7 @@ export class ImgToggle extends Component {
             &and;
           </button>
         )}
-        <img className="cart-img" src={product.gallery[this.state.imgIndex]} />
+        <img className="cart-img" alt="cart" src={product.gallery[this.state.imgIndex]} />
         {this.state.imgIndex === 0 ? (
           ""
         ) : (

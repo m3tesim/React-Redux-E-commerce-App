@@ -1,4 +1,4 @@
-import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT,REMOVE_PRODUCT, productCount} from "../actions/addToCart";
+import {ADD_TO_CART,TOTAL_PRICE,PRODUCT_COUNT,REMOVE_PRODUCT} from "../actions/addToCart";
 
 export function cart(state={ items: [] ,price:[] , count:{}}, action) {
 

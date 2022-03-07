@@ -130,9 +130,9 @@ class Nav extends Component {
 
           <div className="leftnavBar">
             <div className="dropdown-cart">
-              <a onClick={() => this.currencyDropDown()}>
-                <span> {currencies.symbol} ⌄ </span>
-              </a>
+             
+                <span onClick={() => this.currencyDropDown()}> {currencies.symbol} ⌄ </span>
+            
 
               <div
                 className={`currencyDropdown  ${
@@ -143,9 +143,7 @@ class Nav extends Component {
             </div>
 
             <div className="dropdown-cart">
-              <a onClick={() => this.dropDown()}>
-                <img src={cartIcon} alt="cart-icon" className="navIcon" />
-              </a>
+                <img  onClick={() => this.dropDown()} src={cartIcon} alt="cart-icon" className="navIcon" />
               {cart.items.length > 0 && (
                 <div className="cart-badge">{cart.items.length}</div>
               )}
@@ -168,7 +166,7 @@ class Nav extends Component {
         </div>
       
       </div>
-      <div className={  this.state.dropDown===true && `overlaycart`}   >
+      <div className={` ${this.state.dropDown===true? "overlaycart" :"non"}`}   >
         
         </div>
      
