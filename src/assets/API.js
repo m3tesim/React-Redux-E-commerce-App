@@ -11,11 +11,7 @@ const All_CATEGORIES = gql`
   query GetCategories {
     categories {
       name
-      products {
-        id
-        name
-        category
-      }
+  
     }
   }
 `;

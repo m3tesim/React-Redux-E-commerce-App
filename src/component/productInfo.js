@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { PopUp } from "./popUp";
+import parse from 'html-react-parser';
+
 
 class ProductInfo extends Component {
   state = {
@@ -108,10 +110,14 @@ class ProductInfo extends Component {
    
   };
 
+
+
   render() {
     const { product, currency } = this.props;
 
+
     let attributes;
+
     try {
       attributes = product.attributes.map((atr) => {
         switch (atr.name) {
@@ -270,7 +276,10 @@ class ProductInfo extends Component {
         </div>
         <br></br>
 
-        <div id="discription" />
+        <div className="discription"  >
+        {parse(product.description)}
+
+       </div>
       </div>
     );
   }
