@@ -17,9 +17,6 @@ export default class Gallery extends Component {
       <div>
         <div className="images-container ">
 
-          <img src={product.gallery[this.state.value]} />
-
-
           <div className="img-nav">
             {product.gallery.map((img, index) => (
               <img
@@ -29,6 +26,11 @@ export default class Gallery extends Component {
               
               />
             ))}
+          </div>
+
+          <div>
+          <img src={product.gallery[this.state.value]} />
+
           </div>
 
         </div>

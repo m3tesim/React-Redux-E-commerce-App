@@ -24,6 +24,7 @@ class ProductInfo extends Component {
     this.setState({
       [atr]: e.target.value,
       attributes: [...this.state.attributes, atr],
+
     });
   };
 
@@ -31,10 +32,16 @@ class ProductInfo extends Component {
   setAttribute = (atr) => {
     const { product } = this.props;
 
+    this.setState({
+      feedBack: false,
+    });
+
     let atribute = product.attributes
       .filter((i) => i.id === atr)[0]
       .items.filter((i) => i.value === this.state[atr]);
     return atribute[0];
+
+  
   };
 
   validation = () => {
@@ -101,8 +108,16 @@ class ProductInfo extends Component {
 
       this.props.dispatch(addToCart(cutomeProduct));
 
-      this.setState({ feedBack: true ,
+      this.setState({ 
+        feedBack: true ,
         attributes: [],
+        Size: null,
+        Capacity: null,
+        Color: null,
+        "With USB 3 ports": null,
+        "Touch ID in keyboard": null,
+        attributes: [],
+    
       });
 
     }

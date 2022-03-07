@@ -19,12 +19,14 @@ class Nav extends Component {
   };
 
   dropDown = () => {
-    this.setState({ dropDown: !this.state.dropDown });
+    this.setState({ dropDown: !this.state.dropDown ,currencyDropDown: false });
+
+
     this.ubdateTotalPrice();
   };
 
   currencyDropDown = () => {
-    this.setState({ currencyDropDown: !this.state.currencyDropDown });
+    this.setState({ currencyDropDown: !this.state.currencyDropDown ,dropDown: false });
   };
 
   // change products in the srore to much the selected category
@@ -103,6 +105,7 @@ class Nav extends Component {
 
     const { categories, cart, currencies, dispatch } = this.props;
     return (
+      <>
       <div className="nav-container">
         <div className="navBar">
           <div>
@@ -163,7 +166,13 @@ class Nav extends Component {
             </div>
           </div>
         </div>
+      
       </div>
+      <div className={  this.state.dropDown===true && `overlaycart`}   >
+        
+        </div>
+     
+      </>
     );
   }
 }
@@ -179,7 +188,6 @@ function mapStateToProps({ categories, currencies, cart }) {
   };
 }
 
-// ... ✂
 
 export class CurrencySwitcher extends Component {
   state = {
