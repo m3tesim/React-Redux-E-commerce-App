@@ -67,9 +67,6 @@ export class Listitems extends Component {
   calculateTotalPrice = () => {
     const { cart, currencies } = this.props;
 
-  
-    console.log("state added price  " +this.state.addedPrice)
-
     // this function filter the products currency  based on the currency type in store state "currencies"
     const allPrices = cart.items.map((i) =>
       i.prices.filter((c) => c.currency.label === currencies.label)
@@ -165,7 +162,6 @@ export class Item extends Component {
         <div className="cart-info">
           <div>
             <p>
-              {" "}
               <strong>{product.brand}</strong>
             </p>
             <h5>{product.name} </h5>
@@ -173,26 +169,21 @@ export class Item extends Component {
               {currency[0].currency.symbol}
               {currency[0].amount}
               {product.count !== 1 && (
-                <span style={{ color: "#5ece7b" }}> x {product.count}</span>
+                <span className="countColor" > x {product.count}</span>
               )}
             </h4>
 
             {product.attributes.map((atr, index) => {
-              const style = {
-                backgroundColor: atr.items.value,
-                width: "200px",
-                height: "200px",
-              };
+            
               if (atr.name === "Color")
                 return (
                   <h5 key={index}>
-                    {atr.name}: <span style={style}>{atr.items.id}</span>{" "}
+                    {atr.name}: <span className="colorAttribute" style={{backgroundColor:`${atr.items.value}`}}>{atr.items.id}</span>{" "}
                   </h5>
                 );
               else
                 return (
                   <h5 key={index}>
-                    {" "}
                     {atr.name}: {atr.items.id}
                   </h5>
                 );

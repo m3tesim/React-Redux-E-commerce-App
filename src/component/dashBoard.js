@@ -11,7 +11,7 @@ class DashBoard extends Component {
     return (
       <div>
         
-        <div style={{textAlign:"left",marginLeft:"3em"}} >
+        <div className="categoryName">
         <h3>{category.name.toUpperCase()}</h3>
 
         </div>

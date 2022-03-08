@@ -183,7 +183,7 @@ class ProductInfo extends Component {
               <div key={atr.name}>
                 <h5>
                   {atr.name} :{" "}
-                  <span style={{ color: "gray" }}>{this.state.color}</span>
+                  <span className="gray">{this.state.color}</span>
                 </h5>
                 <div className="atributes">
                   {atr.items.map((i) => (
@@ -278,7 +278,7 @@ class ProductInfo extends Component {
 
           {product.inStock === false && (
             <div>
-              <h4 style={{ color: "grey" }}> OUT OF STOCK !</h4>
+              <h4 className="gray"> OUT OF STOCK !</h4>
             </div>
           )}
           <button

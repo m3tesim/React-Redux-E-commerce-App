@@ -236,8 +236,14 @@ font-size: 1.25rem;
   width: 350px;
   height: auto;
   position: relative;
-
 }
+.popUpfeedBack{
+ width: 30%;
+ height: auto;
+ position: relative;
+ margin: auto 1em auto 1em;
+}
+
 
 
 
@@ -321,6 +327,17 @@ font-size: 1.25rem;
   align-items: flex-start;
   cursor: pointer;
 }
+
+.colorAttribute{
+  width: 200px;
+  height: 200px;
+  color: #585858;
+}
+
+.gray{
+  color: gray;
+}
+
 
 /*
   Hide radio button (the round disc)
@@ -524,6 +541,12 @@ input[type="radio"]:checked + label {
 .cart-info div {
   width: 50%;
 }
+.cart-info .countColor {
+  color: #5ece7b
+}
+
+
+
 
 .cart-info .img-toggle {
   align-content: center;
@@ -642,6 +665,10 @@ input[type="radio"]:checked + label {
   height: fit-content;
 	  position: relative;
 
+}
+.categoryName{
+text-align: left;
+margin-left: 3em;
 }
 
 .outOfSock, .outer {

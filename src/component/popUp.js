@@ -25,8 +25,7 @@ export class PopUp extends Component {
           <div className="model-body">
          
           <img 
-            className="thubnailimg"
-            style={{width:"30%",margin:"auto 1em auto 1em"}}
+            className="popUpfeedBack"
             src={product.gallery[0]}
             alt={`${product.name} `}
           />   
