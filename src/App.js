@@ -32,14 +32,10 @@ class App extends React.Component {
               <Route
                 path="/product/:id"
                 render={(props) => {
-                  const {
-                    match: {
-                      params: { id },
-                    },
-                  } = props;
+                  const {match: {params: { id } }} = props;
                   return <ProductPage key={`id=${id}`} {...props} />;
-                }}/>
-                
+                }}
+              />
             )}
 
             <Route path="/cart" component={Cart}></Route>

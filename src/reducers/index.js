@@ -4,10 +4,8 @@ import { categories } from "./categoryReducer";
 import { currencies } from "./currencyReducer";
 import { cart } from "./cartReducer";
 export default combineReducers({
-    products ,
-    categories,
-   currencies, 
-   cart
-   
-    
-})
+  products,
+  categories,
+  currencies,
+  cart,
+});

@@ -3,8 +3,7 @@ import React, { Component } from "react";
 import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { PopUp } from "./popUp";
-import parse from 'html-react-parser';
-
+import parse from "html-react-parser";
 
 class ProductInfo extends Component {
   state = {
@@ -24,7 +23,6 @@ class ProductInfo extends Component {
     this.setState({
       [atr]: e.target.value,
       attributes: [...this.state.attributes, atr],
-
     });
   };
 
@@ -40,8 +38,6 @@ class ProductInfo extends Component {
       .filter((i) => i.id === atr)[0]
       .items.filter((i) => i.value === this.state[atr]);
     return atribute[0];
-
-  
   };
 
   validation = () => {
@@ -74,10 +70,9 @@ class ProductInfo extends Component {
       };
     });
 
-
     let cutomeProduct = Object.assign({}, product, {
       attributes: allAttributes,
-      count:1
+      count: 1,
     });
 
     // the if condition closes the addproduct popUp in  after submitting
@@ -88,47 +83,33 @@ class ProductInfo extends Component {
       delay();
     }
 
-    const duplicateProduct = this.props.cart.items.filter(
-      (i) =>{
-       return i.id === cutomeProduct.id
-      } 
+    const duplicateProduct = this.props.cart.items.filter((i) => {
+      return i.id === cutomeProduct.id;
+    });
+
+    const originalProduct = duplicateProduct.map(
+      (product) => JSON.stringify(product) !== JSON.stringify(cutomeProduct)
     );
 
-    const originalProduct= duplicateProduct.map((product)=>(
-       JSON.stringify(product)!==JSON.stringify(cutomeProduct)
-    ))
-
-    if(originalProduct.includes(false))
-    {   alert("Product already in cart")
-
-   
-
-    }else {
-
-
+    if (originalProduct.includes(false)) {
+      alert("Product already in cart");
+    } else {
       this.props.dispatch(addToCart(cutomeProduct));
 
-      this.setState({ 
-        feedBack: true ,
+      this.setState({
+        feedBack: true,
         attributes: [],
         Size: null,
         Capacity: null,
         Color: null,
         "With USB 3 ports": null,
         "Touch ID in keyboard": null,
-    
       });
-
     }
-
-   
   };
-
-
 
   render() {
     const { product, currency } = this.props;
-
 
     let attributes;
 
@@ -182,8 +163,7 @@ class ProductInfo extends Component {
             return (
               <div key={atr.name}>
                 <h5>
-                  {atr.name} :{" "}
-                  <span className="gray">{this.state.color}</span>
+                  {atr.name} : <span className="gray">{this.state.color}</span>
                 </h5>
                 <div className="atributes">
                   {atr.items.map((i) => (
@@ -290,10 +270,7 @@ class ProductInfo extends Component {
         </div>
         <br></br>
 
-        <div className="discription"  >
-        {parse(product.description)}
-
-       </div>
+        <div className="discription">{parse(product.description)}</div>
       </div>
     );
   }

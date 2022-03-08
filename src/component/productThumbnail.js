@@ -6,21 +6,17 @@ import { AddPopUp } from "./popUp";
 class ProductThumbnail extends Component {
   state = {
     addPopUp: false,
-    showCart:false
+    showCart: false,
   };
 
-  toggleCart=()=>{
-    this.setState({ showCart:!this.state.showCart  });
+  toggleCart = () => {
+    this.setState({ showCart: !this.state.showCart });
     this.setState({ addPopUp: false });
-
-
-
-  }
+  };
   addItem = () => {
     this.setState({ addPopUp: true });
 
     //this.props.dispatch(addToCart(this.props.product));
-
   };
 
   render() {
@@ -33,7 +29,10 @@ class ProductThumbnail extends Component {
 
     return (
       <div className="divContainer">
-        <div className="thubnail  " onMouseEnter={()=>this.toggleCart()} onMouseLeave={()=>this.toggleCart()} >
+        <div
+          className="thubnail  "
+          onMouseEnter={() => this.toggleCart()}
+          onMouseLeave={() => this.toggleCart()}>
           <Link to={`/product/${product.id}`}>
             <img
               className="thubnailimg  "
@@ -45,21 +44,29 @@ class ProductThumbnail extends Component {
           <div className="navBar">
             <div>
               <Link className="navLink" to={`/product/${product.id}`}>
-                <div> {product.brand} {product.name}</div>
+                <div>
+                  {" "}
+                  {product.brand} {product.name}
+                </div>
               </Link>
               <div>
                 {currency[0].currency.symbol} {currency[0].amount}{" "}
               </div>
             </div>
 
-            <div className={`navIconimg  ${this.state.showCart===true&&'cartToggle' }`  } >
-             
-                <img id="cart" src={cart} alt="cart-icon"  onClick={() => this.addItem()}/>
-             
+            <div
+              className={`navIconimg  ${
+                this.state.showCart === true && "cartToggle"
+              }`}>
+              <img
+                id="cart"
+                src={cart}
+                alt="cart-icon"
+                onClick={() => this.addItem()}
+              />
             </div>
-            
           </div>
-          {product.inStock===false && (
+          {product.inStock === false && (
             <div className="outOfSock ">
               <h3> OUT OF STOCK</h3>
             </div>

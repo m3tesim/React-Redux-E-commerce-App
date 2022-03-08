@@ -34,14 +34,3 @@ export default class Gallery extends Component {
     );
   }
 }
-
-/*
-
-
- {product.gallery.map((img, index) => {
-
-                
-              if (index !== this.state.value) return <img  onClick={()=>this.toglleImg(index)} key={index} src={img} />;
-              else return "";
-            })}
-*/

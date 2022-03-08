@@ -5,8 +5,7 @@ import cartIcon from "../assets/cart.svg";
 import { getproductByCategory } from "../actions/productsAction";
 import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
-import {  Listitems } from "./cart";
-import ReactDOM from "react-dom";
+import { Listitems } from "./cart";
 
 class Nav extends Component {
   state = {
@@ -17,12 +16,14 @@ class Nav extends Component {
   };
 
   dropDown = () => {
-    this.setState({ dropDown: !this.state.dropDown ,currencyDropDown: false });
-
+    this.setState({ dropDown: !this.state.dropDown, currencyDropDown: false });
   };
 
   currencyDropDown = () => {
-    this.setState({ currencyDropDown: !this.state.currencyDropDown ,dropDown: false });
+    this.setState({
+      currencyDropDown: !this.state.currencyDropDown,
+      dropDown: false,
+    });
   };
 
   // change products in the srore to much the selected category
@@ -41,10 +42,7 @@ class Nav extends Component {
       getCurrency({ __typename: "Currency", label: value, symbol: name })
     );
   };
-
-
- 
-
+// handle click outSide dropdown 
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
   }
@@ -53,10 +51,11 @@ class Nav extends Component {
     document.removeEventListener("click", this.handleClickOutside, true);
   }
 
-  handleClickOutside = (event) => {
-    const domNode = ReactDOM.findDOMNode(this);
+  wrapper = React.createRef();
 
-    if (!domNode || !domNode.contains(event.target)) {
+  handleClickOutside = (event) => {
+
+    if (!this.wrapper.current || !this.wrapper.current.contains(event.target)) {
       this.setState({
         currencyDropDown: false,
         dropDown: false,
@@ -64,74 +63,78 @@ class Nav extends Component {
     }
   };
   render() {
- 
-
     const { categories, cart, currencies, dispatch } = this.props;
     return (
       <>
-      <div className="nav-container">
-        <div className="navBar">
-          <div>
-            {categories.categories.map((g, index) => (
-              <li key={index}>
-                <NavLink
-                  className={`navLink ${
-                    this.state.active === g.name && "navLinkActive"
-                  } `}
-                  to="/"
-                  onClick={() => this.ChangeCategory(g.name)}
-                  value={g.name}>
-                  {g.name.toUpperCase()}
-                </NavLink>
-              </li>
-            ))}
-          </div>
-
-          <div className="navIcon logo ">
-            <img src={shoppingbag} alt="Logo" />
-          </div>
-
-          <div className="leftnavBar">
-            <div className="dropdown-cart">
-             
-                <span  className="currencySwitcher" onClick={() => this.currencyDropDown()}> {currencies.symbol} ⌄ </span>
-            
-
-              <div
-                className={`currencyDropdown  ${
-                  this.state.currencyDropDown && `active`
-                }`}>
-                <CurrencySwitcher selectedCurrency={this.selectedCurrency} />
-              </div>
+        <div className="nav-container" ref={this.wrapper}>
+          <div className="navBar">
+            <div>
+              {categories.categories.map((g, index) => (
+                <li key={index}>
+                  <NavLink
+                    className={`navLink ${
+                      this.state.active === g.name && "navLinkActive"
+                    } `}
+                    to="/"
+                    onClick={() => this.ChangeCategory(g.name)}
+                    value={g.name}>
+                    {g.name.toUpperCase()}
+                  </NavLink>
+                </li>
+              ))}
             </div>
 
-            <div className="dropdown-cart">
-                <img  onClick={() => this.dropDown()} src={cartIcon} alt="cart-icon" className="navIcon" />
-              {cart.items.length > 0 && (
-                <div className="cart-badge">{cart.items.length}</div>
-              )}
+            <div className="navIcon logo ">
+              <img src={shoppingbag} alt="Logo" />
+            </div>
 
-              <div
-                className={`dropdown-content   ${
-                  this.state.dropDown && `active`
-                }`}>
-                <DropDownCart
-                  cart={cart}
-                  currencies={currencies}
-                  close={this.dropDown}
-                  dispatch={dispatch}
+            <div className="leftnavBar">
+              <div className="dropdown-cart">
+                <span
+                  className="currencySwitcher"
+                  onClick={() => this.currencyDropDown()}>
+                  {" "}
+                  {currencies.symbol} ⌄{" "}
+                </span>
 
+                <div
+                  className={`currencyDropdown  ${
+                    this.state.currencyDropDown && `active`
+                  }`}>
+                  <CurrencySwitcher selectedCurrency={this.selectedCurrency} />
+                </div>
+              </div>
+
+              <div className="dropdown-cart">
+                <img
+                  onClick={() => this.dropDown()}
+                  src={cartIcon}
+                  alt="cart-icon"
+                  className="navIcon"
                 />
+                {cart.items.length > 0 && (
+                  <div className="cart-badge">{cart.items.length}</div>
+                )}
+
+                <div
+                  className={`dropdown-content   ${
+                    this.state.dropDown && `active`
+                  }`}>
+                  <DropDownCart
+                    cart={cart}
+                    currencies={currencies}
+                    close={this.dropDown}
+                    dispatch={dispatch}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
-      
-      </div>
-      <div className={` ${this.state.dropDown===true? "overlaycart" :"non"}`}   >
-        
-        </div>
-     
+        <div
+          className={` ${
+            this.state.dropDown === true ? "overlaycart" : "non"
+          }`}></div>
       </>
     );
   }
@@ -147,7 +150,6 @@ function mapStateToProps({ categories, currencies, cart }) {
     cart,
   };
 }
-
 
 export class CurrencySwitcher extends Component {
   state = {
@@ -187,10 +189,8 @@ export class CurrencySwitcher extends Component {
 }
 
 class DropDownCart extends Component {
- 
-
   render() {
-    const { cart, currencies, close, } = this.props;
+    const { cart, currencies, close } = this.props;
     if (this.props.cart.items.length === 0)
       return (
         <div>
@@ -207,10 +207,18 @@ class DropDownCart extends Component {
           {" "}
           <strong>My bag:</strong> {cart.items.length} items
         </p>
-        <Listitems  cart={cart}  currencies={currencies} dispatch={this.props.dispatch}/>
+        <Listitems
+          cart={cart}
+          currencies={currencies}
+          dispatch={this.props.dispatch}
+        />
 
-   
-        <h5>{"total " +currencies.symbol +" "+ Math.round(cart.price[0] * 100) / 100}</h5>
+        <h5>
+          {"total " +
+            currencies.symbol +
+            " " +
+            Math.round(cart.price[0] * 100) / 100}
+        </h5>
         <div className="navBar">
           <NavLink
             onClick={() => close()}

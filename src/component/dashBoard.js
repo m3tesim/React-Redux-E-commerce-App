@@ -10,18 +10,16 @@ class DashBoard extends Component {
     // const data = dispatch(getproductByCategory("clothes"))
     return (
       <div>
-        
         <div className="categoryName">
-        <h3>{category.name.toUpperCase()}</h3>
-
+          <h3>{category.name.toUpperCase()}</h3>
         </div>
 
         <div className="container">
-            {products.map((p) => (
-              <div key={p.id}>
-                <ProductThumbnail id={p.id} />{" "}
-              </div>
-            ))}
+          {products.map((p) => (
+            <div key={p.id}>
+              <ProductThumbnail id={p.id} />{" "}
+            </div>
+          ))}
         </div>
       </div>
     );
