@@ -11,6 +11,8 @@ class ProductThumbnail extends Component {
 
   toggleCart=()=>{
     this.setState({ showCart:!this.state.showCart  });
+    this.setState({ addPopUp: false });
+
 
 
   }
@@ -18,6 +20,7 @@ class ProductThumbnail extends Component {
     this.setState({ addPopUp: true });
 
     //this.props.dispatch(addToCart(this.props.product));
+
   };
 
   render() {

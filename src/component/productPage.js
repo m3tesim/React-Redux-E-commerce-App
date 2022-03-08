@@ -28,7 +28,6 @@ export default connect(mapStateToProps)(ProductPage);
 
 function mapStateToProps({ products, currencies }, props) {
   const { id } = props.match.params;
-  console.log("this is product id "+id)
 
   const product =products.category.products.filter((p) => p.id === id);
 

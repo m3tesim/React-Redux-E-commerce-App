@@ -580,11 +580,12 @@ input[type="radio"]:checked + label {
   position: relative;
   margin-left: 1.5em;
 }
-.dropdown-cart span{
-font-weight: 500;
-font-size: 1.5rem;
-cursor: pointer;
-}
+.currencySwitcher{
+  font-weight: 500;
+  font-size: 1.5rem;
+  cursor: pointer;
+  }
+
 .cart-badge{
  background-color: #1d1f22;
  color: #ffffff;

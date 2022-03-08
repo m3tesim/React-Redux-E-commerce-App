@@ -5,8 +5,7 @@ import cartIcon from "../assets/cart.svg";
 import { getproductByCategory } from "../actions/productsAction";
 import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
-import { Item } from "./cart";
-import { totalPrice } from "../actions/addToCart";
+import {  Listitems } from "./cart";
 import ReactDOM from "react-dom";
 
 class Nav extends Component {
@@ -14,15 +13,12 @@ class Nav extends Component {
     category: this.props.categories.categories,
     dropDown: false,
     active: "all",
-    addedPrice: 0,
     currencyDropDown: false,
   };
 
   dropDown = () => {
     this.setState({ dropDown: !this.state.dropDown ,currencyDropDown: false });
 
-
-    this.ubdateTotalPrice();
   };
 
   currencyDropDown = () => {
@@ -46,31 +42,8 @@ class Nav extends Component {
     );
   };
 
-  ubdateTotalPrice = () => {
-    const { cart, currencies } = this.props;
 
-    // this function filter the products currency  based on the currency type in store state "currencies"
-    const allPrices = cart.items.map((i) =>
-      i.prices.filter((c) => c.currency.label === currencies.label)
-    );
-
-    // calculating the total price amount of all products
-    let total = allPrices
-      .map((i) => i[0].amount)
-      .reduce((Sum, a) => Sum + a, 0);
-
-    this.totalPriceState(this.state.addedPrice, total);
-  };
-
-  //this fuction ubdates the total price
-
-  totalPriceState = (addedPrice, total) => {
-    const { dispatch } = this.props;
-
-    const price = addedPrice + total;
-
-    dispatch(totalPrice(price));
-  };
+ 
 
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
@@ -91,17 +64,7 @@ class Nav extends Component {
     }
   };
   render() {
-    /* */
-
-    // thtis will add the price of the prudect that it's number increased  to the total
-
-    const changeTotalPrice = (value) => {
-      this.setState(() => ({
-        addedPrice: this.state.addedPrice + value,
-      }));
-
-      this.totalPriceState(value, cart.price[0]);
-    };
+ 
 
     const { categories, cart, currencies, dispatch } = this.props;
     return (
@@ -131,7 +94,7 @@ class Nav extends Component {
           <div className="leftnavBar">
             <div className="dropdown-cart">
              
-                <span onClick={() => this.currencyDropDown()}> {currencies.symbol} ⌄ </span>
+                <span  className="currencySwitcher" onClick={() => this.currencyDropDown()}> {currencies.symbol} ⌄ </span>
             
 
               <div
@@ -153,12 +116,11 @@ class Nav extends Component {
                   this.state.dropDown && `active`
                 }`}>
                 <DropDownCart
-                  totalPriceState={this.totalPriceState}
                   cart={cart}
                   currencies={currencies}
                   close={this.dropDown}
-                  changeTotalPrice={changeTotalPrice}
                   dispatch={dispatch}
+
                 />
               </div>
             </div>
@@ -225,12 +187,10 @@ export class CurrencySwitcher extends Component {
 }
 
 class DropDownCart extends Component {
-  state = {
-    addedPrice: 0,
-  };
+ 
 
   render() {
-    const { cart, currencies, close, changeTotalPrice, dispatch } = this.props;
+    const { cart, currencies, close, } = this.props;
     if (this.props.cart.items.length === 0)
       return (
         <div>
@@ -247,19 +207,10 @@ class DropDownCart extends Component {
           {" "}
           <strong>My bag:</strong> {cart.items.length} items
         </p>
+        <Listitems  cart={cart}  currencies={currencies} dispatch={this.props.dispatch}/>
 
-        {cart.items.map((i, index) => (
-          <div key={index}>
-            <Item
-              product={i}
-              currencies={currencies}
-              cart={cart}
-              changeTotalPrice={changeTotalPrice}
-              dispatch={dispatch}
-            />
-          </div>
-        ))}
-        <h5>{"total " + Math.round(cart.price[0] * 100) / 100}</h5>
+   
+        <h5>{"total " +currencies.symbol +" "+ Math.round(cart.price[0] * 100) / 100}</h5>
         <div className="navBar">
           <NavLink
             onClick={() => close()}

@@ -4,15 +4,71 @@ import { Link } from "react-router-dom";
 import { totalPrice, productCount, removeFromCart } from "../actions/addToCart";
 
 class Cart extends Component {
+ 
+
+  render() {
+    if (this.props.cart.items.length === 0)
+      return (
+        <div>
+          <h3>Cart</h3>
+          <div className="cart-container">
+            <p>Cart is empty</p>
+            <Link to="/">Go Shopping </Link>
+          </div>
+        </div>
+      );
+    const { cart, currencies } = this.props;
+
+ 
+
+    return (
+      <div className="cart-container">
+        <h3>Cart</h3>
+
+
+<Listitems  cart={cart}  currencies={currencies} dispatch={this.props.dispatch}/>
+        <div className="navBar">
+          <h4>
+            {"Total " +
+              currencies.symbol +
+              " " +
+              Math.round(cart.price[0] * 100) / 100}
+          </h4>
+          <button className="action-btn">Check Out</button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps)(Cart);
+
+function mapStateToProps({ cart, currencies }) {
+  return {
+    cart,
+    currencies,
+  };
+}
+
+export class Listitems extends Component {
+
   state = {
     addedPrice: 0,
   };
-  componentWillMount() {
-    this.calculateTotalPrice();
-  }
 
+  componentDidMount(){
+    
+    if(this.props.cart.price[0]){ console.log("IAm a bitch")}
+    else {this.calculateTotalPrice(); }  }
+  
+
+ 
+  
   calculateTotalPrice = () => {
     const { cart, currencies } = this.props;
+
+  
+    console.log("state added price  " +this.state.addedPrice)
 
     // this function filter the products currency  based on the currency type in store state "currencies"
     const allPrices = cart.items.map((i) =>
@@ -35,32 +91,22 @@ class Cart extends Component {
     dispatch(totalPrice(price));
   };
 
+   // thtis will add the price of the prudect that it's number increased  to the total
+    changeTotalPrice = (value) => {
+    this.setState(() => ({
+      addedPrice: this.state.addedPrice + value,
+    }));
+
+    this.totalPriceState(value, this.props.cart.price[0]);
+  };
+
   render() {
-    if (this.props.cart.items.length === 0)
-      return (
-        <div>
-          <h3>Cart</h3>
-          <div className="cart-container">
-            <p>Cart is empty</p>
-            <Link to="/">Go Shopping </Link>
-          </div>
-        </div>
-      );
     const { cart, currencies } = this.props;
 
-    // thtis will add the price of the prudect that it's number increased  to the total
-    const changeTotalPrice = (value) => {
-      this.setState(() => ({
-        addedPrice: this.state.addedPrice + value,
-      }));
 
-      this.totalPriceState(value, cart.price[0]);
-    };
-
+      
     return (
-      <div className="cart-container">
-        <h3>Cart</h3>
-
+      <div>
         {cart.items.map((i, index) => (
           <div key={index}>
             <Item
@@ -68,50 +114,35 @@ class Cart extends Component {
               cart={cart}
               currencies={currencies}
               dispatch={this.props.dispatch}
-              changeTotalPrice={changeTotalPrice}
+              changeTotalPrice={this.changeTotalPrice}
               calculateTotal={this.calculateTotalPrice}
             />
           </div>
         ))}
-
-        <div className="navBar">
-          <h4>{"Total " + Math.round(cart.price[0] * 100) / 100}</h4>
-          <button className="action-btn">Check Out</button>
-        </div>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps)(Cart);
-
-function mapStateToProps({ cart, currencies }) {
-  return {
-    cart,
-    currencies,
-  };
-}
-
 export class Item extends Component {
- 
+
+  
   Increment = (value) => {
-    const { product} = this.props;
+    const { product } = this.props;
 
     this.props.changeTotalPrice(value);
 
-
-    const productcount = { ...this.props.product, count: product.count+ 1 };
+    const productcount = { ...this.props.product, count: product.count + 1 };
 
     this.props.dispatch(productCount(productcount));
   };
 
   decrement = (value) => {
-    const { product} = this.props;
+    const { product } = this.props;
 
-   
     this.props.changeTotalPrice(-value);
 
-    const productcount = { ...this.props.product, count: product.count- 1 };
+    const productcount = { ...this.props.product, count: product.count - 1 };
 
     this.props.dispatch(productCount(productcount));
   };
@@ -141,7 +172,9 @@ export class Item extends Component {
             <h4>
               {currency[0].currency.symbol}
               {currency[0].amount}
-              {product.count !== 1 && <span style={{ color: "#5ece7b" }}> x {product.count}</span>}
+              {product.count !== 1 && (
+                <span style={{ color: "#5ece7b" }}> x {product.count}</span>
+              )}
             </h4>
 
             {product.attributes.map((atr, index) => {
@@ -190,7 +223,6 @@ export class Item extends Component {
   }
 }
 
-connect(mapStateToProps)(Item);
 
 export class ImgToggle extends Component {
   state = {
@@ -232,7 +264,11 @@ export class ImgToggle extends Component {
             &and;
           </button>
         )}
-        <img className="cart-img" alt="cart" src={product.gallery[this.state.imgIndex]} />
+        <img
+          className="cart-img"
+          alt="cart"
+          src={product.gallery[this.state.imgIndex]}
+        />
         {this.state.imgIndex === 0 ? (
           ""
         ) : (
