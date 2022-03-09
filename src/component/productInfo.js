@@ -4,6 +4,7 @@ import addToCart from "../actions/addToCart";
 import { connect } from "react-redux";
 import { PopUp } from "./popUp";
 import parse from "html-react-parser";
+import { productCount } from "../actions/addToCart";
 
 class ProductInfo extends Component {
   state = {
@@ -20,19 +21,27 @@ class ProductInfo extends Component {
   // let user change size
 
   changeAttribute = (e, atr) => {
-    this.setState({
-      [atr]: e.target.value,
-      attributes: [...this.state.attributes, atr],
-    });
+    if (this.state.attributes.includes(atr)) {
+      return this.setState({
+        [atr]: e.target.value,
+        feedBack: false,
+
+      });
+    } else {
+      this.setState({
+        [atr]: e.target.value,
+        attributes: [...this.state.attributes, atr],
+        feedBack: false,
+
+      });
+    }
   };
 
   // return the cutome product after the user changed attributes
   setAttribute = (atr) => {
     const { product } = this.props;
 
-    this.setState({
-      feedBack: false,
-    });
+   
 
     let atribute = product.attributes
       .filter((i) => i.id === atr)[0]
@@ -56,7 +65,7 @@ class ProductInfo extends Component {
 
   // add the customised item to the cart
   addItem = () => {
-    const { product } = this.props;
+    const { product, dispatch } = this.props;
 
     const allAttributes = this.state.attributes.map((atr) => {
       let result = this.setAttribute(atr);
@@ -87,25 +96,32 @@ class ProductInfo extends Component {
       return i.id === cutomeProduct.id;
     });
 
-    const originalProduct = duplicateProduct.map(
-      (product) => JSON.stringify(product) !== JSON.stringify(cutomeProduct)
-    );
+    const duplicateAttribute = duplicateProduct.reduce((result, product) => {
+      if (
+        JSON.stringify(product.attributes) ===
+        JSON.stringify(cutomeProduct.attributes)
+      ) {
+        result.push(product);
+      }
+      return result;
+    }, []);
 
-    if (originalProduct.includes(false)) {
-      alert("Product already in cart");
+    // console.log("dublicated attributes"+JSON.stringify(duplicateAttribute))
+
+    if (duplicateAttribute.length === 0) {
+      dispatch(addToCart(cutomeProduct));
     } else {
-      this.props.dispatch(addToCart(cutomeProduct));
+      const productcount = {
+        ...duplicateAttribute[0],
+        count: duplicateAttribute[0].count + 1,
+      };
 
-      this.setState({
-        feedBack: true,
-        attributes: [],
-        Size: null,
-        Capacity: null,
-        Color: null,
-        "With USB 3 ports": null,
-        "Touch ID in keyboard": null,
-      });
+      dispatch(productCount(productcount));
     }
+
+    this.setState({
+      feedBack: true,
+    });
   };
 
   render() {

@@ -56,7 +56,6 @@ export class Listitems extends Component {
 
   componentDidMount() {
     if (this.props.cart.price[0]) {
-      console.log("IAm a bitch");
     } else {
       this.calculateTotalPrice();
     }
@@ -70,6 +69,7 @@ export class Listitems extends Component {
       i.prices.filter((c) => c.currency.label === currencies.label)
     );
 
+    console.log("Looooook heeere"+allPrices)
     // calculating the total price amount of all products
     let total = allPrices
       .map((i) => i[0].amount)
@@ -91,8 +91,8 @@ export class Listitems extends Component {
     this.setState(() => ({
       addedPrice: this.state.addedPrice + value,
     }));
-
     this.totalPriceState(value, this.props.cart.price[0]);
+
   };
 
   render() {
@@ -123,7 +123,7 @@ export class Item extends Component {
 
     this.props.changeTotalPrice(value);
 
-    const productcount = { ...this.props.product, count: product.count + 1 };
+    const productcount = { ...product, count: product.count + 1 };
 
     this.props.dispatch(productCount(productcount));
   };
