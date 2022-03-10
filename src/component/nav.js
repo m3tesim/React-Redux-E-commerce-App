@@ -6,7 +6,7 @@ import { getproductByCategory } from "../actions/productsAction";
 import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
 import { Listitems } from "./cart";
-
+import { totalPrice } from "../actions/addToCart";
 class Nav extends Component {
   state = {
     category: this.props.categories.categories,
@@ -15,8 +15,26 @@ class Nav extends Component {
     currencyDropDown: false,
   };
 
+  calculateTotalPrice = () => {
+    const { cart, currencies } = this.props;
+
+    // this function filter the products currency  based on the currency type in store state "currencies"
+
+    const allPrices = cart.items.map((i) =>
+      i.prices
+        .filter((c) => c.currency.label === currencies.label)
+        .map((p) => p.amount * i.count)
+    );
+
+    // calculating the total price amount of all products
+    let total = allPrices.map((i) => i[0]).reduce((Sum, a) => Sum + a, 0);
+
+    this.props.dispatch(totalPrice(total));
+  };
+
   dropDown = () => {
     this.setState({ dropDown: !this.state.dropDown, currencyDropDown: false });
+    this.calculateTotalPrice();
   };
 
   currencyDropDown = () => {
@@ -41,8 +59,9 @@ class Nav extends Component {
     this.props.dispatch(
       getCurrency({ __typename: "Currency", label: value, symbol: name })
     );
+    this.calculateTotalPrice();
   };
-// handle click outSide dropdown 
+  // handle click outSide dropdown
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
   }
@@ -54,7 +73,6 @@ class Nav extends Component {
   wrapper = React.createRef();
 
   handleClickOutside = (event) => {
-
     if (!this.wrapper.current || !this.wrapper.current.contains(event.target)) {
       this.setState({
         currencyDropDown: false,
@@ -62,6 +80,7 @@ class Nav extends Component {
       });
     }
   };
+
   render() {
     const { categories, cart, currencies, dispatch } = this.props;
     return (
@@ -125,6 +144,7 @@ class Nav extends Component {
                     currencies={currencies}
                     close={this.dropDown}
                     dispatch={dispatch}
+                    calculateTotalPrice={this.calculateTotalPrice}
                   />
                 </div>
               </div>
@@ -211,6 +231,7 @@ class DropDownCart extends Component {
           cart={cart}
           currencies={currencies}
           dispatch={this.props.dispatch}
+          calculateTotalPrice={this.props.calculateTotalPrice}
         />
 
         <h5>
