@@ -8,11 +8,7 @@ export function products(state=null, action) {
           ...state,
           ...action.products
         };
-        case GET_PRODUCT_BYID:
-          return {
-            ...state,
-            ...action.product
-          };
+      
        
        
         default:

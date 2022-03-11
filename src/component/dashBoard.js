@@ -2,16 +2,21 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductThumbnail from "./productThumbnail";
 import { handleProducts  } from "../actions/shared";
-import { getAllProducts } from "../actions/productsAction";
 import { _getProductsByCategory ,_getAllProducts} from "../assets/API";
 
 class DashBoard extends Component {
 
   componentDidMount() {
-    this.props.dispatch(handleProducts ());
+
+    if  (this.props.loading !==true){this.props.dispatch(handleProducts())}
+    else{console.log("time out runinng")
   }
+}
 
   render() {
+
+
+
 
     const { products, category, loading } = this.props
     
