@@ -2,21 +2,34 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Gallery from "./gallery";
 import ProductInfo from "./productInfo";
+import { _getProductsById } from "../assets/API";
+import { handleProductByID } from "../actions/shared";
+import { getProductById } from "../actions/productsAction";
 
 class ProductPage extends Component {
-  render() {
-    const { product, currencies } = this.props;
+  componentDidMount() {
+    //this.props.dispatch(handleProductByID(this.props.id));
+    this.props.dispatch(getProductById(this.props.id));
 
-    const currency = product.prices.filter(
-      (c) => c.currency.label === currencies.label
-    );
+  }
+  render() {
+    const { product, currencies, loading } = this.props;
+
+    const currency = product
+      ? product.prices.filter((c) => c.currency.label === currencies.label)
+      : "";
+
     return (
       <div>
-        <div className="product-container">
-          <Gallery product={product} />
+        {loading !== true ? (
+          <div className="product-container">
+            <Gallery product={product} />
 
-          <ProductInfo currency={currency} product={product} />
-        </div>
+            <ProductInfo currency={currency} product={product} />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
@@ -24,15 +37,13 @@ class ProductPage extends Component {
 
 export default connect(mapStateToProps)(ProductPage);
 
-function mapStateToProps({ products, currencies }, props) {
+function mapStateToProps({ productByID, currencies }, props) {
   const { id } = props.match.params;
-
-  const product = products.category.products.filter((p) => p.id === id);
 
   return {
     id,
-    product: product[0],
+    product:productByID? productByID.product : "",
     currencies,
-    loading: currencies === null,
+    loading:productByID === null,
   };
 }

@@ -4,23 +4,39 @@ import { Link } from "react-router-dom";
 import { totalPrice, productCount, removeFromCart } from "../actions/addToCart";
 
 class Cart extends Component {
-  calculateTotalPrice = () => {
+
+
+
+  calculateTotalPrice = (v) => {
     const { cart, currencies } = this.props;
 
     // this function filter the products currency  based on the currency type in store state "currencies"
 
-    const allPrices = cart.items.map((i) =>
-      i.prices
-        .filter((c) => c.currency.label === currencies.label)
-        .map((p) => p.amount * i.count)
+    const allPrices = cart.items.map((i) => 
+    {
+     let currencyPrice= i.prices.filter((c) => c.currency.label === currencies.label)
+     console.log("currency prices"+JSON.stringify(currencyPrice))
+
+     let result = currencyPrice.map((p) => p.amount * (i.count+ (v?v:0)))
+     console.log("result"+JSON.stringify(result))
+
+      return result 
+    }
     );
+    console.log("the all prices arrayes"+allPrices)
 
     // calculating the total price amount of all products
     let total = allPrices.map((i) => i[0]).reduce((Sum, a) => Sum + a, 0);
 
     this.props.dispatch(totalPrice(total));
 
+
   };
+
+
+
+
+  
   render() {
     if (this.props.cart.items.length === 0)
       return (
@@ -68,20 +84,15 @@ function mapStateToProps({ cart, currencies }) {
 }
 
 export class Listitems extends Component {
+
+ 
   state = {
     addedPrice: 0,
-    total:1
   };
 
 
 
-  ubdate=()=>(
-    this.setState({
-      
-        total:this.props.cart.price[0]
-      
-    })
-  )
+
   render() {
     const { cart, currencies } = this.props;
 
@@ -95,7 +106,6 @@ export class Listitems extends Component {
               currencies={currencies}
               dispatch={this.props.dispatch}
               calculateTotalPrice={this.props.calculateTotalPrice}
-              ubdate={this.ubdate}
             />
           </div>
         ))}
@@ -105,16 +115,22 @@ export class Listitems extends Component {
 }
 
 export class Item extends Component {
+
+ 
+ 
   Increment = () => {
+
+
     const { product, dispatch, calculateTotalPrice } = this.props;
+
 
     const productcount = { ...product, count: product.count + 1 };
 
     dispatch(productCount(productcount));
 
-    calculateTotalPrice();
-    this.props.ubdate()
-
+  //console.log("this is count first"+ productcount.count)  
+    calculateTotalPrice(1);
+  //  console.log("this is count socend"+product.count)  
 
     
   };
@@ -125,16 +141,20 @@ export class Item extends Component {
     const productcount = { ...product, count: product.count - 1 };
 
     dispatch(productCount(productcount));
-    calculateTotalPrice();
+    calculateTotalPrice(-1);
   };
 
   removeItem = (productID) => {
     //console.log(JSON.stringify(this.props.changeTotalPrice))
 
     this.props.dispatch(removeFromCart(productID));
+
+    this.props.calculateTotalPrice()
+
   };
 
   render() {
+
     const { product, currencies } = this.props;
 
     const currency = product.prices.filter(

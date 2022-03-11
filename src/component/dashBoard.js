@@ -1,15 +1,29 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductThumbnail from "./productThumbnail";
-//import { getproductByCategory } from "../actions/productsAction";
+import { handleProducts  } from "../actions/shared";
+import { getAllProducts } from "../actions/productsAction";
+import { _getProductsByCategory ,_getAllProducts} from "../assets/API";
 
 class DashBoard extends Component {
-  render() {
-    const { products, category } = this.props;
 
-    // const data = dispatch(getproductByCategory("clothes"))
+  componentDidMount() {
+    this.props.dispatch(handleProducts ());
+  }
+
+  render() {
+
+    const { products, category, loading } = this.props
+    
+
+ //   console.log("this category dashboard page "+category)
+
+   
     return (
       <div>
+     {loading === true ? null : 
+        <>
+
         <div className="categoryName">
           <h3>{category.name.toUpperCase()}</h3>
         </div>
@@ -21,6 +35,8 @@ class DashBoard extends Component {
             </div>
           ))}
         </div>
+        </>
+        }
       </div>
     );
   }
@@ -29,9 +45,36 @@ class DashBoard extends Component {
 export default connect(mapStateToProps)(DashBoard);
 
 function mapStateToProps({ products }) {
-  const theproduct = products.category.products;
+
+  const theproduct = products?products.category.products:null;
+  const category=products?products.category:null;
   return {
-    products: theproduct,
-    category: products.category,
+    loading: products === null,
+  
+   products: theproduct,
+  category: category,
   };
 }
+
+
+
+/*
+
+       {this.props.loading === true ? null : 
+        <>
+        <Nav />
+
+        <div className="categoryName">
+          <h3>{category.name.toUpperCase()}</h3>
+        </div>
+
+        <div className="container">
+          {products.map((p) => (
+            <div key={p.id}>
+              <ProductThumbnail id={p.id} />{" "}
+            </div>
+          ))}
+        </div>
+        </>}
+
+*/

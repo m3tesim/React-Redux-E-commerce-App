@@ -1,4 +1,4 @@
-import { GET_PRODUCTS } from "../actions/productsAction";
+import { GET_PRODUCTS, GET_PRODUCT_BYID } from "../actions/productsAction";
 
 
 export function products(state=null, action) {
@@ -8,9 +8,30 @@ export function products(state=null, action) {
           ...state,
           ...action.products
         };
+        case GET_PRODUCT_BYID:
+          return {
+            ...state,
+            ...action.product
+          };
        
        
         default:
             return state;
         }
       }
+
+
+      export function productByID(state=null, action) {
+        switch (action.type) {
+       
+            case GET_PRODUCT_BYID:
+              return {
+                ...state,
+                ...action.product
+              };
+           
+           
+            default:
+                return state;
+            }
+          }

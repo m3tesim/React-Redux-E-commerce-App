@@ -7,32 +7,35 @@ import { Route, Switch } from "react-router-dom";
 import ProductPage from "./component/productPage";
 import Cart from "./component/cart";
 import Nav from "./component/nav";
-
+import { _getAllProducts } from "./assets/API";
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
-  componentWillUnmount() {
-    this.props.dispatch(handleInitialData());
-  }
 
   render() {
-    const { loading } = this.props;
+    const { loading, categories ,loading2} = this.props;
+
     return (
       <div className="app-container">
         <div className="App">
-          {loading === true ? null : <Nav />}
+        
+        {loading === true ? null :<Nav />}
 
           <Switch>
             <Route exact path="/">
-              {loading === true ? null : <DashBoard />}
+              {loading   === true ? null : <DashBoard />}
             </Route>
 
             {loading === true ? null : (
               <Route
                 path="/product/:id"
                 render={(props) => {
-                  const {match: {params: { id } }} = props;
+                  const {
+                    match: {
+                      params: { id },
+                    },
+                  } = props;
                   return <ProductPage key={`id=${id}`} {...props} />;
                 }}
               />
@@ -48,8 +51,11 @@ class App extends React.Component {
 
 export default connect(mapStateToProps)(App);
 
-function mapStateToProps({ currencies, categories }) {
+function mapStateToProps({ currencies, categories ,products}) {
   return {
     loading: currencies === null,
+
+
+    categories,
   };
 }

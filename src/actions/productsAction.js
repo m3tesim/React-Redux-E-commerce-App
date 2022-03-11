@@ -1,7 +1,8 @@
-import { _getProductsByCategory } from "../assets/API";
+import { _getProductsByCategory ,_getProductsById,_getAllProducts} from "../assets/API";
 
 export const GET_PRODUCTS = "get_products";
 export const PRODUCT_BY_CATEGORY = "productByCategory";
+export const GET_PRODUCT_BYID="get_product_byId"
 
 export function getProducts(products) {
   return {
@@ -10,7 +11,25 @@ export function getProducts(products) {
   };
 }
 
+export function getProductByID(product) {
+  return {
+    type: GET_PRODUCT_BYID,
+    product,
+  };
+}
 
+
+export function getAllProducts() {
+  return (dispatch) => {
+
+    return _getAllProducts().then(({ products}) => {
+     //console.log("from shared "+JSON.stringify(allProducts))
+
+     dispatch(getProducts(products));
+
+    });
+  };
+}
 
 export function getproductByCategory(category) {
 
@@ -23,3 +42,11 @@ export function getproductByCategory(category) {
 }
 
 
+export function getProductById(id) {
+  return (dispatch) => {
+    return _getProductsById(id).then((product) => {
+
+      dispatch(getProductByID(product));
+    });
+  };
+}

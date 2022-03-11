@@ -11,7 +11,6 @@ const All_CATEGORIES = gql`
   query GetCategories {
     categories {
       name
-  
     }
   }
 `;
@@ -164,18 +163,27 @@ export function _getCurrencies() {
 }
 
 export function getInitialData() {
-  return Promise.all([_getAllProducts(), _getCategories(),_getCurrencies()]).then(
-    ([allProducts, categories,currencies]) => (
-      {
-      allProducts,
+  return Promise.all([_getCategories(), _getCurrencies()]).then(
+    ([categories, currencies]) => ({
       categories,
-      currencies
+      currencies,
     })
   );
 }
+export function getProductsData() {
+  return Promise.all([_getAllProducts()]).then(([products]) => ({
+    products,
+  }));
+}
+
+/*
+export function getProductsByID(id) {
+  return Promise.all([_getProductsById(id)]).then(([products]) => ({
+    products,
+  }));
+}*/
 
 export function _getProductsByCategory(category) {
-
   return new Promise((res, rej) => {
     setTimeout(
       () =>

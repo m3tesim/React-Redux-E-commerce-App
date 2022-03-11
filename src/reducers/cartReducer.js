@@ -31,9 +31,8 @@ export function cart(state = { items: [], price: [], count: {} }, action) {
     case PRODUCT_COUNT:
       const newItems = state.items.filter(
         (i) =>
-          JSON.stringify(i.attributes) !==
-          JSON.stringify(action.productCount.attributes)
-      );
+      (  i.id !==action.productCount.id)||(JSON.stringify(i.attributes) !== JSON.stringify(action.productCount.attributes  )  )
+        );
       return {
         ...state,
         items: [...newItems, action.productCount],
