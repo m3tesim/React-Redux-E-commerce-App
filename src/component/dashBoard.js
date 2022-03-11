@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProductThumbnail from "./productThumbnail";
 import { handleProducts  } from "../actions/shared";
-import { _getProductsByCategory ,_getAllProducts} from "../assets/API";
 
 class DashBoard extends Component {
 
   componentDidMount() {
 
-    if  (this.props.loading !==true){this.props.dispatch(handleProducts())}
-    else{console.log("time out runinng")
+ {this.props.dispatch(handleProducts())
   }
 }
 
@@ -61,25 +59,3 @@ function mapStateToProps({ products }) {
   };
 }
 
-
-
-/*
-
-       {this.props.loading === true ? null : 
-        <>
-        <Nav />
-
-        <div className="categoryName">
-          <h3>{category.name.toUpperCase()}</h3>
-        </div>
-
-        <div className="container">
-          {products.map((p) => (
-            <div key={p.id}>
-              <ProductThumbnail id={p.id} />{" "}
-            </div>
-          ))}
-        </div>
-        </>}
-
-*/

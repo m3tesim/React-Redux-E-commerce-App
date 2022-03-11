@@ -7,7 +7,6 @@ import getCurrency from "../actions/currencyAction";
 import { Link, NavLink } from "react-router-dom";
 import { Listitems } from "./cart";
 import { totalPrice } from "../actions/addToCart";
-import { handleInitialData } from "../actions/shared";
 
 class Nav extends Component {
   componentDidMount() {

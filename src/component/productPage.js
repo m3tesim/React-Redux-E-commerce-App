@@ -2,10 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Gallery from "./gallery";
 import ProductInfo from "./productInfo";
-import { _getProductsById } from "../assets/API";
-import { handleProductByID } from "../actions/shared";
 import { getProductById } from "../actions/productsAction";
-import Nav from "./nav";
 class ProductPage extends Component {
   componentDidMount() {
     //this.props.dispatch(handleProductByID(this.props.id));

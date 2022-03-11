@@ -7,14 +7,13 @@ import { Route, Switch } from "react-router-dom";
 import ProductPage from "./component/productPage";
 import Cart from "./component/cart";
 import Nav from "./component/nav";
-import { _getAllProducts } from "./assets/API";
 class App extends React.Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData());
   }
 
   render() {
-    const { loading, categories ,loading2} = this.props;
+    const { loading} = this.props;
 
     return (
       <div className="app-container">
