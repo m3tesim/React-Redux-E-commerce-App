@@ -9,6 +9,15 @@ import { Listitems } from "./cart";
 import { totalPrice } from "../actions/addToCart";
 
 class Nav extends Component {
+
+
+  state = {
+    category: this.props.categories.categories,
+    dropDown: false,
+    active: "all",
+    currencyDropDown: false,
+  };
+  
   componentDidMount() {
     document.addEventListener("click", this.handleClickOutside, true);
 
@@ -17,12 +26,15 @@ class Nav extends Component {
     document.removeEventListener("click", this.handleClickOutside, true);
 
   }
-  state = {
-    category: this.props.categories.categories,
-    dropDown: false,
-    active: "all",
-    currencyDropDown: false,
-  };
+
+
+  
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.cart.items.length !== prevProps.cart.items.length) {
+      this.calculateTotalPrice()
+    }
+  }
 
   calculateTotalPrice = (v) => {
     const { cart, currencies } = this.props;

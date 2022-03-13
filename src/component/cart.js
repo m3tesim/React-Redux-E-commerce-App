@@ -5,30 +5,36 @@ import { totalPrice, productCount, removeFromCart } from "../actions/addToCart";
 
 class Cart extends Component {
 
+  
 
+  componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.cart.items.length !== prevProps.cart.items.length) {
+      this.calculateTotalPrice()
+    }
+  }
 
   calculateTotalPrice = (v) => {
     const { cart, currencies } = this.props;
+
 
     // this function filter the products currency  based on the currency type in store state "currencies"
 
     const allPrices = cart.items.map((i) => 
     {
      let currencyPrice= i.prices.filter((c) => c.currency.label === currencies.label)
-     console.log("currency prices"+JSON.stringify(currencyPrice))
 
      let result = currencyPrice.map((p) => p.amount * (i.count+ (v?v:0)))
-     console.log("result"+JSON.stringify(result))
 
       return result 
     }
     );
-    console.log("the all prices arrayes"+allPrices)
 
     // calculating the total price amount of all products
     let total = allPrices.map((i) => i[0]).reduce((Sum, a) => Sum + a, 0);
 
     this.props.dispatch(totalPrice(total));
+
 
 
   };
@@ -74,14 +80,7 @@ class Cart extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Cart);
 
-function mapStateToProps({ cart, currencies }) {
-  return {
-    cart,
-    currencies,
-  };
-}
 
 export class Listitems extends Component {
 
@@ -149,7 +148,6 @@ export class Item extends Component {
 
     this.props.dispatch(removeFromCart(productID));
 
-    this.props.calculateTotalPrice()
 
   };
 
@@ -278,4 +276,14 @@ export class ImgToggle extends Component {
       </div>
     );
   }
+}
+
+
+export default connect(mapStateToProps)(Cart);
+
+function mapStateToProps({ cart, currencies }) {
+  return {
+    cart,
+    currencies,
+  };
 }

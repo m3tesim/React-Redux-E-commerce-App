@@ -6,7 +6,6 @@ import { handleProducts  } from "../actions/shared";
 class DashBoard extends Component {
 
   componentDidMount() {
-
  {this.props.dispatch(handleProducts())
   }
 }

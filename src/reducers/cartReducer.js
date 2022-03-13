@@ -5,7 +5,7 @@ import {
   REMOVE_PRODUCT,
 } from "../actions/addToCart";
 
-export function cart(state = { items: [], price: [], count: {} }, action) {
+export function cart(state = { items: [], price: []}, action) {
   switch (action.type) {
     case ADD_TO_CART:
       return {
